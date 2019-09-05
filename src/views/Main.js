@@ -7,14 +7,18 @@ export class Main extends Component {
     render() {
         return (
             <div style={this.windowStyle}>
-                
+                <Space />
             </div>
         );
     }
 
     windowStyle = {
+        position:'fixed',
+        overflow: 'scroll',
+        left: '0',
+        top: '0',
         width: '100%',
-        height: '100%'
+        height: '100%',
     }
 }
 
