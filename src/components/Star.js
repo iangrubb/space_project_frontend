@@ -30,7 +30,7 @@ export class Star extends Component {
         }
 
         return (
-            <div style={starStyle}>
+            <div className={this.props.className} style={starStyle}>
                 
             </div>
         );
