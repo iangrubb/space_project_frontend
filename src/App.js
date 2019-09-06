@@ -1,19 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Main from './views/Main'
 
-function App() {
+class App extends React.Component {
 
-  const appStyle ={
+  appStyle ={
+    position: 'fixed',
+    margin: '0',
     width: '100vw',
-    height: '100vh'
+    height: '100vh',
   }
-  return (
-    <div style={appStyle} className="App">
-      <Main />
-    </div>
-  );
+  
+  render () {
+    return (
+      <div style={this.appStyle} className="App">
+          <Main />
+      </div>
+    );
+  }
 }
 
 export default App;
