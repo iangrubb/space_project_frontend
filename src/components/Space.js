@@ -3,8 +3,8 @@ import Star from "./Star";
 import Planet from "./Planet";
 import Constellation from "./Constellation";
 
-const SPACE_WIDTH = 3000;
-const SPACE_HEIGHT = 3000;
+const SPACE_WIDTH = 6000;
+const SPACE_HEIGHT = 6000;
 
 const stars = [...Array(2000).keys()].map(num => {
   const left = Math.floor(SPACE_WIDTH * Math.random());
