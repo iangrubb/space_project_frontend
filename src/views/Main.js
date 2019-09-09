@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import Space from '../components/Space'
+import Map from '../components/Map'
+import UserInfo from '../components/UserInfo'
 
 export class Main extends Component {
 
-    state = {scrollTop: 0, scrollLeft: 0}
+    state = {
+        scrollTop: 0,
+        scrollLeft: 0,
+        mapShow: false,
+    }
 
     constructor(props) {
         super(props)
         this.mainScreen = React.createRef();
     }
 
+    center = () => {
+        
+        this.setState({scrollTop: 3000, scrollLeft: 3000,})
+    }
+
 
     componentDidUpdate(prevProps, prevState) {
     if (prevState.scrollTop !== this.state.scrollTop || prevState.scrollLeft !== this.state.scrollLeft ) {
+       
+        console.log(this.mainScreen.current.scrollLeft)
         this.mainScreen.current.scrollLeft = this.state.scrollLeft
         this.mainScreen.current.scrollTop = this.state.scrollTop
     }}
@@ -21,14 +34,27 @@ export class Main extends Component {
         this.setState({scrollTop: e.target.scrollTop, scrollLeft: e.target.scrollLeft})
     }
 
+    toggleMap = () => {
+        console.log(this.state.mapShow)
+        this.setState({mapShow: !this.state.mapShow})
+    }
+
     render() {
 
         
         return (
             <div ref={this.mainScreen} style={this.windowFrameStyle} onScroll={this.handleScroll} >
+                
+                
+
                 <div style={this.windowStyle}>
                     <Space />
-                </div>
+                </div> 
+
+                < UserInfo username={"Ian"} center={this.center}/>
+                < Map show={this.state.mapShow} toggleMap={this.toggleMap}/>
+                
+
             </div>
         )
     }
