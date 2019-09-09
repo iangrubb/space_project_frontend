@@ -32,6 +32,7 @@ export default class Planet extends Component {
   };
 
   componentDidMount() {
+    console.log("getting moons")
     fetch(`http://localhost:3000/planets/${this.props.planet.id}/moons`)
       .then(res => res.json())
       .then(data => this.setState({ moons: data }));
@@ -48,8 +49,9 @@ export default class Planet extends Component {
     return (
       <div>
         <img src={this.state.image} style={planetStyle} alt="" />
-        {this.state.moons.map(moon => (
+        {this.state.moons.map((moon,idx) => (
           <Moon
+            key={idx}
             planetTop={this.state.top}
             planetLeft={this.state.left}
             moon={moon}

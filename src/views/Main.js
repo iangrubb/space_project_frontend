@@ -22,6 +22,8 @@ export class Main extends Component {
     }
 
     render() {
+
+        
         return (
             <div ref={this.mainScreen} style={this.windowFrameStyle} onScroll={this.handleScroll} >
                 <div style={this.windowStyle}>

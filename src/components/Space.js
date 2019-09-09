@@ -139,6 +139,7 @@ export class Space extends Component {
     // setInterval(() => {
     //   this.setState({ starShift: this.state.starShift + 1 });
     // }, 250);
+    console.log("getting planets")
     fetch("http://localhost:3000/planets")
       .then(res => res.json())
       .then(data => this.setState({ planets: data }));

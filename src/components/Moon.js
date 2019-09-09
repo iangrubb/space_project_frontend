@@ -12,7 +12,6 @@ export default class Moon extends Component {
   };
 
   render() {
-    console.log(this.props);
     const planetStyle = {
       position: "absolute",
       height: `60px`,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Star from '../components/Star'
 import styled from 'styled-components'
 import Form from '../components/Form'
+import {withRouter} from 'react-router-dom'
 
 const FormChoiceButton = styled.div`
     background: ${props => props.pressed ? 'white' : '#eeeeee'};
@@ -36,6 +37,8 @@ const FormContainer = styled.div`
 
 
 
+const URL = 'http://localhost:3000'
+
 
 export class Landing extends Component {
 
@@ -63,7 +66,65 @@ export class Landing extends Component {
     return { left: left, top: top, diameter: diameter, color: color, pageWidth: 1800 };
     });
 
+    logInHandler = e => {
+        e.preventDefault()
+        console.log(e.target.name.value, e.target.password.value)
 
+        const config = {
+            method: "POST",
+            body: JSON.stringify({
+                username: e.target.name.value,
+                password: e.target.password.value
+              }),
+            headers: {
+            'content-type': 'application/json',
+            accept: 'application/json'
+            }
+        }
+
+        fetch(`${URL}/login`, config)
+        .then( resp => resp.json())
+        .then( data => {
+            if (data.errors) {
+                console.log(data.errors)
+            } else {
+                console.log(data)
+                localStorage.setItem('token', data.token)
+                this.props.setUserId(data.user.id)
+                this.props.history.push('/space')
+            }
+        })
+
+
+    }
+
+    signUpHandler = e => {
+        e.preventDefault()
+
+        const config = {
+            method: "POST",
+            body: JSON.stringify({
+                username: e.target.name.value,
+                password: e.target.password.value
+              }),
+            headers: {
+            'content-type': 'application/json',
+            accept: 'application/json'
+            }
+        }
+
+        fetch(`${URL}/users`, config)
+        .then( resp => resp.json())
+        .then( data => {
+            console.log(data)
+            localStorage.setItem('token', data.token)
+            this.props.setUserId(data.user.id)
+            this.props.history.push('/space')
+        })
+
+    }
+
+ 
     render() {
         
         const formContainerStyle ={
@@ -154,8 +215,8 @@ export class Landing extends Component {
                     </FormChoiceButton>
                 </div>
                 
-                {this.state.menu === "Sign Up" ? <Form message={"Sign Up!"}/> : null }   
-                {this.state.menu === "Log In" ? <Form message={"Log In!"}/> : null }   
+                {this.state.menu === "Sign Up" ? <Form submitHandler={this.signUpHandler} message={"Sign Up!"}/> : null }   
+                {this.state.menu === "Log In" ? <Form submitHandler={this.logInHandler} message={"Log In!"}/> : null }   
                     
                 {this.stars.map((star, index) => (
                     <Star key={index} {...star} shift={this.state.starShift} />
@@ -167,4 +228,4 @@ export class Landing extends Component {
     }
 }
 
-export default Landing;
+export default withRouter(Landing);

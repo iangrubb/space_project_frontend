@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 
-const Button = styled.div`
+const Button = styled.input`
 
     background: #111111;
     color: #eeeeee;
@@ -41,6 +41,11 @@ const Input = styled.input`
 export class Form extends Component {
 
     state={name: "", password: ""}
+
+    changeHandler = e => {
+        const { name, value } = e.target
+        this.setState({[name]:value})
+    }
 
     render() {
 
@@ -88,14 +93,14 @@ export class Form extends Component {
         return (
             
                 <div style={containerStyle}>
-                    <form style={formStyle}>
+                    <form style={formStyle} onSubmit={this.props.submitHandler}>
                         <h3>Username</h3>
-                        <Input type="text"/>
+                        <Input type="text" name="name" value={this.state.name} onChange={this.changeHandler}                />
                         <p>{this.props.nameError}</p>
                         <h3>Password</h3>
-                        <Input type="text"/>
+                        <Input type="password" name="password" value={this.state.password} onChange={this.changeHandler}                  />
                         <p>{this.props.pwError}</p>
-                        <Button>{this.props.message}</Button>
+                        <Button type="submit" value={this.props.message}                    ></Button>
                     </form>
                 </div>
         );
