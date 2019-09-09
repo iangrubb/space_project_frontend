@@ -1,8 +1,10 @@
-import React, { Component } from "react";
-import Space from "../components/Space";
+import React, { Component } from 'react';
+import Space from '../components/Space'
+import Map from '../components/Map'
+import UserInfo from '../components/UserInfo'
 
 export class Main extends Component {
-  state = { scrollTop: 0, scrollLeft: 0 };
+  state = { scrollTop: 0, scrollLeft: 0, mapShow: false,};
 
   constructor(props) {
     super(props);
@@ -31,19 +33,30 @@ export class Main extends Component {
     });
   };
 
-  render() {
-    return (
-      <div style={this.windowFrameStyle}>
-        <div
-          style={this.windowStyle}
-          ref={this.mainScreen}
-          onScroll={this.handleScroll}
-        >
-          <Space />
-        </div>
-      </div>
-    );
-  }
+    toggleMap = () => {
+        console.log(this.state.mapShow)
+        this.setState({mapShow: !this.state.mapShow})
+    }
+
+    render() {
+
+        
+        return (
+            <div  style={this.windowFrameStyle}>
+                
+                
+
+                <div style={this.windowStyle} ref={this.mainScreen} onScroll={this.handleScroll} >
+                    <Space />
+                </div> 
+
+                < UserInfo username={"Ian"} center={this.center}/>
+                < Map show={this.state.mapShow} toggleMap={this.toggleMap}/>
+                
+
+            </div>
+        )
+    }
 
   windowStyle = {
     position: "fixed",
@@ -53,7 +66,6 @@ export class Main extends Component {
     left: "1vw",
     height: "97vh",
     width: "97vw",
-
     borderTop: ".5vh double #222222",
     borderBottom: ".5vh double #222222",
     borderLeft: ".5vw double #222222",
