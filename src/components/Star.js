@@ -23,7 +23,7 @@ export class Star extends Component {
             height: `${this.state.diameter}px`,
             width: `${this.state.diameter}px`,
             top: `${this.props.top}px`,
-            left: `${(this.props.left + this.props.shift) % 6000 }px`,
+            left: `${(this.props.left + this.props.shift) % this.props.pageWidth }px`,
             background: `${this.state.color}`,
             borderRadius: '50%',
             boxShadow: '0 0 4px white',

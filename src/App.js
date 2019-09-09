@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Main from './views/Main'
+import Landing from './views/Landing';
 
 class App extends React.Component {
 
@@ -14,6 +15,7 @@ class App extends React.Component {
   render () {
     return (
       <div style={this.appStyle} className="App">
+          {/* <Landing /> */}
           <Main />
       </div>
     );

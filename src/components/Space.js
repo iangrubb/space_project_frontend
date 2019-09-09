@@ -6,14 +6,6 @@ import Constellation from "./Constellation";
 const SPACE_WIDTH = 6000;
 const SPACE_HEIGHT = 6000;
 
-const stars = [...Array(2000).keys()].map(num => {
-  const left = Math.floor(SPACE_WIDTH * Math.random());
-  const top = Math.floor(SPACE_HEIGHT * Math.random());
-  const diameter = Math.floor(Math.random() * 3) + 2;
-  const color = `hsl(0, 0%, ${Math.floor(Math.random() * 25 + 55)}%)`;
-
-  return { left: left, top: top, diameter: diameter, color: color };
-});
 
 const processRawConstellation = con => {
   const split = con.split(" ");
@@ -140,13 +132,13 @@ export class Space extends Component {
     const diameter = Math.floor(Math.random() * 3) + 2;
     const color = `hsl(0, 0%, ${Math.floor(Math.random() * 25 + 55)}%)`;
 
-    return { left: left, top: top, diameter: diameter, color: color };
+    return { left: left, top: top, diameter: diameter, color: color, pageWidth: SPACE_WIDTH};
   });
 
   componentDidMount() {
-    setInterval(() => {
-      this.setState({ starShift: this.state.starShift + 1 });
-    }, 250);
+    // setInterval(() => {
+    //   this.setState({ starShift: this.state.starShift + 1 });
+    // }, 250);
     fetch("http://localhost:3000/planets")
       .then(res => res.json())
       .then(data => this.setState({ planets: data }));

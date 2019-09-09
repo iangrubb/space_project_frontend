@@ -10,7 +10,7 @@ export class Constellation extends Component {
 
     render() {
         return (
-            
+             
             <div>
                 {this.props.stars.map(star => <Star
                     className={`${star.star_id}`}
@@ -18,6 +18,7 @@ export class Constellation extends Component {
                     diameter={8}
                     color={'hsl(0, 0%,100%)'}
                     shift={0}
+                    pageWidth={6000}
                     left={this.props.left + star.x}
                     top={this.props.top + star.y}
                 />)}
