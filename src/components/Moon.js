@@ -12,7 +12,6 @@ export default class Moon extends Component {
   };
 
   render() {
-    console.log(this.state);
     const planetStyle = {
       position: "absolute",
       height: `60px`,
@@ -21,10 +20,6 @@ export default class Moon extends Component {
       left: `${this.state.left}px`,
       zIndex: 0
     };
-    return (
-      <div>
-        <img src={this.state.image} style={planetStyle} alt="" />
-      </div>
-    );
+    return <img src={this.state.image} style={planetStyle} alt="" />;
   }
 }

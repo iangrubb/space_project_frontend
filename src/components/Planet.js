@@ -55,27 +55,27 @@ export default class Planet extends Component {
       zIndex: 99
     };
     return (
-      <div>
+      <>
         <img
           src={this.state.image}
           style={planetStyle}
           alt=""
           onClick={this.showHandler}
         />
-        {this.state.moons.map((moon, idx) => (
+        {/* {this.state.moons.map((moon, idx) => (
           <Moon
             key={idx}
             planetTop={this.state.top}
             planetLeft={this.state.left}
             moon={moon}
           />
-        ))}
+        ))} */}
         <Info
           planet={this.state}
           show={this.state.show}
           planetStyle={planetStyle}
         />
-      </div>
+      </>
     );
   }
 }
