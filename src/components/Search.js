@@ -7,7 +7,7 @@ const Container = styled.div`
     bottom: -22.25vw;
 
     transform: translateY(${props => props.show ? (props.typing ? '-4vw' : '-20.5vw') : '0'});
-    transition: transform 1s;
+    transition: transform .6s;
     
 
     position: fixed;

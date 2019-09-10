@@ -8,7 +8,7 @@ const Container = styled.div`
     bottom: -18.5vw;
 
     transform: translateY(${props => props.show ? '-15vw' : '0'});
-    transition: transform 1s;
+    transition: transform .6s;
     
 
     position: fixed;
