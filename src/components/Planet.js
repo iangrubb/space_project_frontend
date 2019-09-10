@@ -30,12 +30,13 @@ export default class Planet extends Component {
     name: this.props.planet.name,
     image: sample[Math.floor(Math.random() * sample.length)],
     moons: [],
-    show: false
+    show: false,
+    info: this.props.planet.info
   };
 
-  showHandler = () => {
+  showHandler = e => {
     this.setState({ show: !this.state.show });
-    console.log("clicked");
+    this.props.show(this.state.info);
   };
 
   componentDidMount() {

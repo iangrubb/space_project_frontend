@@ -226,18 +226,26 @@ export class Space extends Component {
     };
     return (
       <div style={this.spaceStyle}>
-
-
-        <div className="sun" style={{zIndex: '4', background: 'yellow', position: 'absolute', borderRadius: '50%', height: '100px', width:'100px', top: `${(SPACE_HEIGHT / 2) - 50}px`, left: `${(SPACE_WIDTH/2) - 50}px`}}></div>
-
-
+        <div
+          className="sun"
+          style={{
+            zIndex: "4",
+            background: "yellow",
+            position: "absolute",
+            borderRadius: "50%",
+            height: "100px",
+            width: "100px",
+            top: `${SPACE_HEIGHT / 2 - 50}px`,
+            left: `${SPACE_WIDTH / 2 - 50}px`
+          }}
+        ></div>
 
         {locatedConstellations.map(cons => (
           <Constellation {...cons} />
         ))}
 
         {this.state.planets.map(planet => (
-          <Planet key={planet.id} planet={planet} />
+          <Planet key={planet.id} planet={planet} show={this.props.show} />
         ))}
 
         {this.stars.map((star, index) => (

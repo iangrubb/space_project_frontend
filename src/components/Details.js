@@ -1,47 +1,57 @@
-import React, { Component } from 'react';
-import styled from 'styled-components'
-
+import React, { Component } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
+  left: 6vw;
+  bottom: -18.5vw;
 
-    left: 6vw;
-    bottom: -18.5vw;
+  transform: translateY(${props => (props.show ? "-15vw" : "0")});
+  transition: transform 0.6s;
 
-    transform: translateY(${props => props.show ? '-15vw' : '0'});
-    transition: transform .6s;
-    
+  position: fixed;
+  width: 40vw;
+  height: 22vw;
 
-    position: fixed;
-    width: 40vw;
-    height: 22vw;
+  background: linear-gradient(
+    48deg,
+    rgba(188, 183, 200, 1) 6%,
+    rgba(123, 118, 133, 1) 15%,
+    rgba(178, 172, 187, 1) 23%,
+    rgba(132, 126, 143, 1) 30%,
+    rgba(176, 170, 188, 1) 37%,
+    rgba(113, 108, 121, 1) 43%,
+    rgba(166, 163, 171, 1) 48%,
+    rgba(128, 123, 138, 1) 52%,
+    rgba(111, 103, 127, 1) 60%,
+    rgba(177, 173, 187, 1) 70%,
+    rgba(149, 143, 162, 1) 77%,
+    rgba(102, 97, 110, 1) 83%,
+    rgba(114, 110, 122, 1) 89%,
+    rgba(171, 166, 180, 1) 95%
+  );
 
-    background: linear-gradient(48deg, rgba(188,183,200,1) 6%, rgba(123,118,133,1) 15%, rgba(178,172,187,1) 23%, rgba(132,126,143,1) 30%, rgba(176,170,188,1) 37%, rgba(113,108,121,1) 43%, rgba(166,163,171,1) 48%, rgba(128,123,138,1) 52%, rgba(111,103,127,1) 60%, rgba(177,173,187,1) 70%, rgba(149,143,162,1) 77%, rgba(102,97,110,1) 83%, rgba(114,110,122,1) 89%, rgba(171,166,180,1) 95%);
+  border: 0.1vw solid black;
+  border-radius: 2vw;
 
-    border: 0.1vw solid black;
-    border-radius: 2vw;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
 
 const Monitor = styled.div`
+  width: 90%;
+  height: 58%;
 
-    width: 90%;
-    height: 58%;
+  overflow: scroll;
 
-    overflow: scroll;
+  border: 0.2vw double #eeeeee;
 
-    border: .2vw double #eeeeee;
+  border-radius: 0.4vw;
+  box-shadow: 0 0 1vw white;
 
-    border-radius: 0.4vw;
-    box-shadow: 0 0 1vw white;
-
-    background: #222222;
-    
-`
+  background: #222222;
+`;
 
 const DetailsButton = styled.div`
 
@@ -71,19 +81,21 @@ const DetailsButton = styled.div`
         transform: translateY(-0.1vh);
         box-shadow: 0.02vw 0.04vw 0 #222222;
     }    
-`
+`;
 
 export class Details extends Component {
-    render() {
-        return (
-            <Container show={this.props.show}>
-                < DetailsButton onClick={this.props.toggleDetails}><h3 style={{margin: '0'}}>Details</h3></DetailsButton>
-                < Monitor>
-                
-                </Monitor>
-            </Container>
-        );
-    }
+  render() {
+    return (
+      <Container show={this.props.show}>
+        <DetailsButton onClick={this.props.toggleDetails}>
+          <h3 style={{ margin: "0" }}>Details</h3>
+        </DetailsButton>
+        <Monitor>
+          <p>{this.props.planet}</p>
+        </Monitor>
+      </Container>
+    );
+  }
 }
 
 export default Details;
