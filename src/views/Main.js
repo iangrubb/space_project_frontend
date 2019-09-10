@@ -136,6 +136,7 @@ export class Main extends Component {
             planets={this.state.planets}
             showHandler={this.showHandler}
             show={this.state.show}
+            favoritePlanet={this.props.favoritePlanet}
           />
         </div>
 
@@ -165,8 +166,11 @@ export class Main extends Component {
         />
 
         <Favorites
+          showHandler={this.showHandler}
+          zoom={this.zoomTo}
           show={this.state.favoritesShow}
           userPlanets={this.props.userPlanets}
+          unfavoritePlanet={this.props.unfavoritePlanet}
         />
         <Details
           show={this.state.detailsShow}

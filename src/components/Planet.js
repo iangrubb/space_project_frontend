@@ -81,6 +81,7 @@ export default class Planet extends Component {
           />
         ))} */}
         <Info
+          favoritePlanet={this.props.favoritePlanet}
           planet={this.state}
           show={this.props.show}
         />

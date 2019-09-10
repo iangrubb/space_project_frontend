@@ -1,5 +1,7 @@
 import React from "react";
 
+import {Icon} from 'antd'
+
 const Info = props => {
   let modalstyle = {
     position: "absolute",
@@ -18,7 +20,7 @@ const Info = props => {
     <div style={modalstyle}>
       <span>&times;</span>
       <p>Name:{props.planet.name}</p>
-      <button>Add To Fav </button>
+      <button onClick={props.favoritePlanet}><Icon type="like" /></button>
     </div>
   );
 };

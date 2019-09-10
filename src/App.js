@@ -17,6 +17,21 @@ class App extends React.Component {
     this.setState({ userPlanets: number });
   };
 
+  favoritePlanet = planet => () => {
+    if (!this.state.userPlanets.includes(planet)) {
+      this.setState({userPlanets: [...this.state.userPlanets, planet]})
+    }
+    // AND THEN FETCH
+  }
+
+  unfavoritePlanet = planet => e => {
+    e.stopPropagation()
+    this.setState({userPlanets: this.state.userPlanets.filter( p => planet.id !== p.id)})
+    // AND THEN FETCH
+  }
+  
+
+
   logOut = () => {
     console.log(this.state, localStorage.getItem("token"));
     this.setState({ userId: null });
@@ -63,6 +78,8 @@ class App extends React.Component {
                 logOut={this.logOut}
                 userId={this.state.userId}
                 userPlanets={this.state.userPlanets}
+                favoritePlanet={this.favoritePlanet}
+                unfavoritePlanet={this.unfavoritePlanet}
               />
             )}
           />
