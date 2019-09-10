@@ -51,6 +51,8 @@ const Monitor = styled.div`
   box-shadow: 0 0 1vw white;
 
   background: #222222;
+
+  color: white;
 `;
 
 const DetailsButton = styled.div`

@@ -71,7 +71,9 @@ export class Main extends Component {
   toggleFavorites = () =>
     this.setState({ favoritesShow: !this.state.favoritesShow });
 
-  toggleSearch = () => this.setState({ searchShow: !this.state.searchShow });
+  toggleSearch = () => {
+    this.setState({ searchShow: !this.state.searchShow });
+  };
 
   toggleDetails = () => this.setState({ detailsShow: !this.state.detailsShow });
 
@@ -96,7 +98,10 @@ export class Main extends Component {
           username={"Ian"}
           center={this.center}
         />
-        <Favorites show={this.state.favoritesShow} />
+        <Favorites
+          show={this.state.favoritesShow}
+          userPlanets={this.props.userPlanets}
+        />
         <Map show={this.state.mapShow} toggleMap={this.toggleMap} />
         <Search show={this.state.searchShow} toggleSearch={this.toggleSearch} />
         <Details
