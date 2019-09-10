@@ -54,7 +54,7 @@ background: #333333;
 font-family: Orbitron, sans-serif;
 font-size: 0.8vw;
 
-margin: 0 .5vw 1vh .5vw;
+margin: 0;
 padding 1vh .5vw;
 
 border: solid #333333 .1vw;
@@ -80,7 +80,7 @@ export class UserInfo extends Component {
 
             <NameDisplay><h2 style={{margin: '0'}}>{this.props.username}</h2></NameDisplay>
 
-            <div style={{display: 'flex', width: '80%', margin: '0 1vw 1vw 1vw'}}>
+            <div style={{display: 'flex', justifyContent:'space-evenly', width: '80%', margin: '0 1vw 1vw 1vw'}}>
                 <Button onClick={this.props.toggleFavorites}>Favorites</Button>
                 <Button onClick={this.props.center}>Center</Button>
                 <Button onClick={this.props.logOut}>Log Out</Button>
