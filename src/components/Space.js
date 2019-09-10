@@ -208,7 +208,6 @@ const locatedConstellations = constellations.map((cons, idx, array) => {
 
 export class Space extends Component {
   state = {
-    starShift: 0,
     planets: []
   };
 
@@ -227,16 +226,7 @@ export class Space extends Component {
     };
   });
 
-  componentDidMount() {
-    // setInterval(() => {
-    //   this.setState({ starShift: this.state.starShift + 1 });
-    // }, 250);
-    console.log("getting planets");
-    fetch("http://localhost:3000/planets")
-      .then(res => res.json())
-      .then(data => this.setState({ planets: data }));
-  }
-
+  
   render() {
     // can used on a div to prevent scroll
     const prevent = {
@@ -247,30 +237,17 @@ export class Space extends Component {
     };
     return (
       <div style={this.spaceStyle}>
-        <div
-          className="sun"
-          style={{
-            zIndex: "4",
-            background: "yellow",
-            position: "absolute",
-            borderRadius: "50%",
-            height: "100px",
-            width: "100px",
-            top: `${SPACE_HEIGHT / 2 - 50}px`,
-            left: `${SPACE_WIDTH / 2 - 50}px`
-          }}
-        ></div>
-
+       
         {locatedConstellations.map(cons => (
           <Constellation {...cons} />
         ))}
 
-        {this.state.planets.map(planet => (
+        {this.props.planets.filter(planet => planet.withInSolarSystem).map(planet => (
           <Planet key={planet.id} planet={planet} show={this.props.show} />
         ))}
 
         {this.stars.map((star, index) => (
-          <Star key={index} {...star} shift={this.state.starShift} />
+          <Star key={index} {...star} />
         ))}
       </div>
     );

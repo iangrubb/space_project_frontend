@@ -4,15 +4,15 @@ import styled from 'styled-components'
 const Container = styled.div`
 
     right: 6vw;
-    top: -16.5vw;
+    top: -20.5vw;
 
-    transform: translateY(${props => props.show ? '14.5vw' : '0'});
+    transform: translateY(${props => props.show ? '19vw' : '0'});
     transition: transform 0.6s;
     
 
     position: fixed;
     width: 20vw;
-    height: 20vw;
+    height: 24vw;
 
     background: linear-gradient(48deg, rgba(188,183,200,1) 6%, rgba(123,118,133,1) 15%, rgba(178,172,187,1) 23%, rgba(132,126,143,1) 30%, rgba(176,170,188,1) 37%, rgba(113,108,121,1) 43%, rgba(166,163,171,1) 48%, rgba(128,123,138,1) 52%, rgba(111,103,127,1) 60%, rgba(177,173,187,1) 70%, rgba(149,143,162,1) 77%, rgba(102,97,110,1) 83%, rgba(114,110,122,1) 89%, rgba(171,166,180,1) 95%);
 
@@ -29,8 +29,8 @@ const Container = styled.div`
 
 const Monitor = styled.div`
 
-    width: 80%;
-    height: 68%;
+    width: 300px;
+    height: 300px;
 
     border: .2vw double #eeeeee;
 
@@ -71,13 +71,47 @@ const MapButton = styled.div`
     }    
 `
 
+const Dot= styled.div`
 
+    background: ${props => props.color};
+
+    transform: translate(${props => Math.floor(props.left/ 20)}px , ${props => Math.floor(props.top/ 20)}px);
+
+    position:absolute;
+    
+
+    height: 6px;
+    width: 6px;
+    
+    border-radius: 50%;
+
+`
+
+const Box= styled.div`
+
+    background: hsla( 240, 60%, 60%, .3);
+    height: ${props => Math.floor(props.height/ 20)}px;
+    width: ${props => Math.floor(props.width/ 20)}px;
+    transform: translate(${props => Math.floor(props.left/ 20)}px , ${props => Math.floor(props.top/ 20)}px);
+
+`
 
 export class Map extends Component {
+
+
     render() {
         return (
             <Container show={this.props.show}>
                 <Monitor>
+                    <Dot color={"yellow"} top={3000} left={3000}></Dot>
+
+                    {this.props.planets.map(planet => {
+                        console.log(planet.left, planet.top)
+                        return <Dot color={"red"} top={planet.top} left={planet.left} ></Dot>
+                    })}
+
+                    <Box top={this.props.scrollTop} left={this.props.scrollLeft} height={this.props.windowTop} width={this.props.windowLeft}></Box>
+
 
                 </Monitor>
                 <MapButton onClick={this.props.toggleMap}>

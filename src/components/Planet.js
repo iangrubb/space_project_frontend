@@ -11,6 +11,8 @@ import Uranus from "../images/uranus.png";
 import Moon from "./Moon";
 import Info from "./Info";
 
+import styled, {keyframes} from 'styled-components'
+
 const sample = [
   PlanetPic,
   DestroyedPlanet,
@@ -23,10 +25,23 @@ const sample = [
   Asteroid
 ];
 
+
+const Circle = styled.img`
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 2950px;
+  left: 2950px;
+
+  transform: rotate(${props => props.rotation}deg) translateX(${props => props.distance}px) rotate(${props => props.rotation}deg);
+  
+};
+`
+
 export default class Planet extends Component {
   state = {
-    top: Math.floor(5000 * Math.random()),
-    left: Math.floor(5000 * Math.random()),
+    top: 3000 - 50,
+    left: 3000 - 50 + (2800 * ( this.props.planet.distanceFromSun/ 2147483647)),
     name: this.props.planet.name,
     image: sample[Math.floor(Math.random() * sample.length)],
     moons: [],
@@ -47,19 +62,17 @@ export default class Planet extends Component {
   }
 
   render() {
-    const planetStyle = {
-      position: "absolute",
-      height: `200px`,
-      width: `200px`,
-      top: `${this.state.top}px`,
-      left: `${this.state.left}px`,
-      zIndex: 99
-    };
+
+    const distance = 2800 * ( this.props.planet.distanceFromSun/ 2147483647)
+
+    console.log(this.props.shift)
+    
     return (
       <>
-        <img
+        <Circle
+          rotation={0}
+          distance={distance}
           src={this.state.image}
-          style={planetStyle}
           alt=""
           onClick={this.showHandler}
         />
@@ -74,7 +87,6 @@ export default class Planet extends Component {
         <Info
           planet={this.state}
           show={this.state.show}
-          planetStyle={planetStyle}
         />
       </>
     );

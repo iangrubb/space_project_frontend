@@ -19,7 +19,8 @@ export class Main extends Component {
     mapShow: false,
     searchShow: false,
     detailsShow: false,
-    show: ""
+    show: "",
+    planets: [],
   };
 
   constructor(props) {
@@ -41,6 +42,16 @@ export class Main extends Component {
     window.addEventListener("resize", this.updateWindowDimensions);
     this.updateWindowDimensions();
     setTimeout(() => this.center(), 100);
+
+    console.log("getting planets");
+    fetch("http://localhost:3000/planets")
+      .then(res => res.json())
+      .then(data =>{
+        
+        const planets = data.map( planet => {return { ...planet, top: Math.floor(Math.random()*5800), left: Math.floor(Math.random()*5800)}})
+        console.log("located planets", planets)
+        this.setState({ planets: planets })
+    });
   }
 
   componentWillUnmount() {
@@ -87,7 +98,7 @@ export class Main extends Component {
           ref={this.mainScreen}
           onScroll={this.handleScroll}
         >
-          <Space show={this.showHandler} />
+          <Space planets={this.state.planets} show={this.showHandler} />
         </div>
 
         <UserInfo
@@ -97,7 +108,7 @@ export class Main extends Component {
           center={this.center}
         />
         <Favorites show={this.state.favoritesShow} />
-        <Map show={this.state.mapShow} toggleMap={this.toggleMap} />
+        <Map planets={this.state.planets} scrollLeft={this.state.scrollLeft} scrollTop={this.state.scrollTop} windowLeft={this.state.windowLeft} windowTop={this.state.windowTop} show={this.state.mapShow} toggleMap={this.toggleMap} />
         <Search show={this.state.searchShow} toggleSearch={this.toggleSearch} />
         <Details
           show={this.state.detailsShow}
