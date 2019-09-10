@@ -91,7 +91,7 @@ export class Details extends Component {
           <h3 style={{ margin: "0" }}>Details</h3>
         </DetailsButton>
         <Monitor>
-          <p>{this.props.planet}</p>
+          <p style={{color: 'white'}}>{this.props.planet === undefined ? null : this.props.planet.info}</p>
         </Monitor>
       </Container>
     );

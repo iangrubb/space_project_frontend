@@ -45,14 +45,10 @@ export default class Planet extends Component {
     name: this.props.planet.name,
     image: sample[Math.floor(Math.random() * sample.length)],
     moons: [],
-    show: false,
     info: this.props.planet.info
   };
 
-  showHandler = e => {
-    this.setState({ show: !this.state.show });
-    this.props.show(this.state.info);
-  };
+  
 
   componentDidMount() {
     console.log("getting moons");
@@ -74,7 +70,7 @@ export default class Planet extends Component {
           distance={distance}
           src={this.state.image}
           alt=""
-          onClick={this.showHandler}
+          onClick={this.props.showHandler}
         />
         {/* {this.state.moons.map((moon, idx) => (
           <Moon
@@ -86,7 +82,7 @@ export default class Planet extends Component {
         ))} */}
         <Info
           planet={this.state}
-          show={this.state.show}
+          show={this.props.show}
         />
       </>
     );

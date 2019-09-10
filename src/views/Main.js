@@ -15,11 +15,14 @@ export class Main extends Component {
     scrollLeft: 0,
     windowTop: 0,
     windowLeft: 0,
+
     favoritesShow: false,
     mapShow: false,
     searchShow: false,
     detailsShow: false,
-    show: "",
+
+    show: undefined,
+
     planets: [],
   };
 
@@ -71,6 +74,13 @@ export class Main extends Component {
     });
   };
 
+  zoomTo = (x, y) => {
+    console.log(x, y)
+    this.setState({
+    scrollLeft: Math.max(0 , Math.min( x - this.state.windowLeft / 2, SPACE_WIDTH - this.state.windowLeft / 2) ),
+    scrollTop: Math.max(0 , Math.min( x - this.state.windowTop / 2, SPACE_HEIGHT - this.state.windowTop / 2) )
+  })}
+
   center = () =>
     this.setState({
       scrollTop: SPACE_HEIGHT / 2 - this.state.windowTop / 2,
@@ -86,8 +96,13 @@ export class Main extends Component {
 
   toggleDetails = () => this.setState({ detailsShow: !this.state.detailsShow });
 
-  showHandler = planetInfo => {
-    this.setState({ show: planetInfo });
+
+  showHandler = planet => () => {
+    if (this.state.show === planet) {
+      this.setState({show: undefined})
+    } else {
+      this.setState({ show: planet })
+    }
   };
 
   render() {
@@ -98,7 +113,7 @@ export class Main extends Component {
           ref={this.mainScreen}
           onScroll={this.handleScroll}
         >
-          <Space planets={this.state.planets} show={this.showHandler} />
+        <Space planets={this.state.planets} showHandler={this.showHandler} show={this.state.show} />
         </div>
 
         <UserInfo
@@ -108,8 +123,11 @@ export class Main extends Component {
           center={this.center}
         />
         <Favorites show={this.state.favoritesShow} />
+
         <Map planets={this.state.planets} scrollLeft={this.state.scrollLeft} scrollTop={this.state.scrollTop} windowLeft={this.state.windowLeft} windowTop={this.state.windowTop} show={this.state.mapShow} toggleMap={this.toggleMap} />
-        <Search show={this.state.searchShow} toggleSearch={this.toggleSearch} />
+
+        <Search zoom={this.zoomTo} showHandler={this.showHandler} planets={this.state.planets} show={this.state.searchShow} toggleSearch={this.toggleSearch} />
+
         <Details
           show={this.state.detailsShow}
           toggleDetails={this.toggleDetails}

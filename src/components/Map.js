@@ -106,7 +106,6 @@ export class Map extends Component {
                     <Dot color={"yellow"} top={3000} left={3000}></Dot>
 
                     {this.props.planets.map(planet => {
-                        console.log(planet.left, planet.top)
                         return <Dot color={"red"} top={planet.top} left={planet.left} ></Dot>
                     })}
 

@@ -243,7 +243,7 @@ export class Space extends Component {
         ))}
 
         {this.props.planets.filter(planet => planet.withInSolarSystem).map(planet => (
-          <Planet key={planet.id} planet={planet} show={this.props.show} />
+          <Planet key={planet.id} planet={planet} showHandler={this.props.showHandler(planet)} show={this.props.show === planet} />
         ))}
 
         {this.stars.map((star, index) => (

@@ -91,10 +91,18 @@ export class Search extends Component {
 
     updateSearch = e => this.setState({search: e.target.value})
     
-    handleClick = () => {
-        this.setState({search: ''})
+    handleClick = () =>  {
         this.props.toggleSearch()
+        this.setState({search: ''})
     }
+
+    displayed = () => this.props.planets.filter( planet => planet.name.includes(this.state.search))
+
+    selectPlanet = planet => () => {
+        this.props.showHandler(planet)()
+        this.props.zoom(planet.left , planet.top)
+    }
+    
 
     render() {
         return (
@@ -106,7 +114,9 @@ export class Search extends Component {
                 <SearchField value={this.state.search} onChange={this.updateSearch}/>
 
                 <Monitor>
-
+                    {this.state.search === "" ? null : this.displayed().map( planet => 
+                        <p style={{color: 'white'}} onClick={this.selectPlanet(planet)}>{planet.name}</p>
+                    )}
                 </Monitor>
                 
             </Container>  
