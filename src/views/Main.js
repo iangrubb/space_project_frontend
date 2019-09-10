@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import Space from '../components/Space'
 import Map from '../components/Map'
 import UserInfo from '../components/UserInfo'
+import Favorites from '../components/Favorites'
+import Search from '../components/Search'
+import Details from '../components/Details'
+
+
+const SPACE_WIDTH = 6000;
+const SPACE_HEIGHT = 6000;
 
 export class Main extends Component {
-  state = { scrollTop: 0, scrollLeft: 0, mapShow: false,};
+  state = {scrollTop: 0, scrollLeft: 0, windowTop: 0, windowLeft: 0, favoritesShow: false, mapShow: false, searchShow: false, detailsShow: false};
 
   constructor(props) {
     super(props);
@@ -22,41 +29,58 @@ export class Main extends Component {
   }
 
   componentDidMount() {
-    this.setState({ scrollTop: 2300, scrollLeft: 3300 });
+    
+    window.addEventListener('resize', this.updateWindowDimensions);
+    this.updateWindowDimensions();
+    setTimeout(() => this.center(), 100)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions = () => this.setState({windowTop: window.innerHeight, windowLeft: window.innerWidth})
+  
+
   handleScroll = e => {
-    console.log(this.state);
     this.setState({
       scrollTop: e.target.scrollTop,
       scrollLeft: e.target.scrollLeft
     });
   };
 
-    toggleMap = () => {
-        console.log(this.state.mapShow)
-        this.setState({mapShow: !this.state.mapShow})
-    }
+  center = () => this.setState({scrollTop: (SPACE_HEIGHT / 2) - (this.state.windowTop / 2), scrollLeft: (SPACE_WIDTH / 2) - (this.state.windowLeft / 2)})
 
-    render() {
+  toggleMap = () => this.setState({mapShow: !this.state.mapShow})
 
-        
-        return (
-            <div  style={this.windowFrameStyle}>
-                
-                
+  toggleFavorites = () => this.setState({favoritesShow: !this.state.favoritesShow})
 
-                <div style={this.windowStyle} ref={this.mainScreen} onScroll={this.handleScroll} >
-                    <Space />
-                </div> 
+  toggleSearch = () => this.setState({searchShow: !this.state.searchShow})
 
-                < UserInfo username={"Ian"} center={this.center}/>
-                < Map show={this.state.mapShow} toggleMap={this.toggleMap}/>
-                
+  toggleDetails = () => this.setState({detailsShow: !this.state.detailsShow})
+  
 
-            </div>
-        )
-    }
+  render() {
+      
+      return (
+          <div  style={this.windowFrameStyle}>
+              
+              
+
+              <div style={this.windowStyle} ref={this.mainScreen} onScroll={this.handleScroll} >
+                  <Space />
+              </div> 
+
+              < UserInfo logOut={this.props.logOut} toggleFavorites={this.toggleFavorites} username={"Ian"} center={this.center}/>
+              < Favorites show={this.state.favoritesShow} />
+              < Map show={this.state.mapShow} toggleMap={this.toggleMap}/>
+              < Search show={this.state.searchShow} toggleSearch={this.toggleSearch}/>
+              < Details show={this.state.detailsShow} toggleDetails={this.toggleDetails}/>
+              
+
+          </div>
+      )
+  }
 
   windowStyle = {
     position: "fixed",

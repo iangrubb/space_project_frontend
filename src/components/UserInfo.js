@@ -3,11 +3,13 @@ import styled from 'styled-components'
 
 const Container = styled.div`
 
-    left -2vw;
+    z-index: 2;
+
+    left 6vw;
     top: -2vw;
 
     position: fixed;
-    width: 21vw;
+    width: 23vw;
     height: 11vw;
 
     background: linear-gradient(48deg, rgba(188,183,200,1) 6%, rgba(123,118,133,1) 15%, rgba(178,172,187,1) 23%, rgba(132,126,143,1) 30%, rgba(176,170,188,1) 37%, rgba(113,108,121,1) 43%, rgba(166,163,171,1) 48%, rgba(128,123,138,1) 52%, rgba(111,103,127,1) 60%, rgba(177,173,187,1) 70%, rgba(149,143,162,1) 77%, rgba(102,97,110,1) 83%, rgba(114,110,122,1) 89%, rgba(171,166,180,1) 95%);
@@ -17,7 +19,7 @@ const Container = styled.div`
 
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     justify-content: flex-end;
 
     font-family: Orbitron, sans-serif;
@@ -79,9 +81,9 @@ export class UserInfo extends Component {
             <NameDisplay><h2 style={{margin: '0'}}>{this.props.username}</h2></NameDisplay>
 
             <div style={{display: 'flex', width: '80%', margin: '0 1vw 1vw 1vw'}}>
-                <Button onClick={this.props.center}>Favorites</Button>
-                <Button>Edit</Button>
-                <Button>Log Out</Button>
+                <Button onClick={this.props.toggleFavorites}>Favorites</Button>
+                <Button onClick={this.props.center}>Center</Button>
+                <Button onClick={this.props.logOut}>Log Out</Button>
 
             </div>
                     

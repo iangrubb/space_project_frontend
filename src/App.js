@@ -14,6 +14,13 @@ class App extends React.Component {
     this.setState({userId: number})
   }
 
+  logOut = () => {
+    console.log(this.state, localStorage.getItem("token"))
+    this.setState({userId: null})
+    localStorage.removeItem("token")
+    this.props.history.push('/welcome')
+  }
+
   componentDidMount () {
     const token = localStorage.getItem('token')
     if (token) {
@@ -25,7 +32,6 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          
           console.log("test", data)
           this.setState({userId: data})
           // this.props.history.push('/space')
@@ -46,7 +52,7 @@ class App extends React.Component {
       <div style={this.appStyle} className="App">
           <Switch>
             {/* <Route exact path="/space" render={()=> this.state.userId ? <Main userId={this.state.userId}/> : this.props.history.push('/welcome')}/> */}
-            <Route exact path="/space" render={()=> <Main userId={this.state.userId}/>}/>
+            <Route exact path="/space" render={()=> <Main logOut={this.logOut} userId={this.state.userId}/>}/>
             <Route path="/" render={() => <Landing setUserId={this.setUserId} />} />
           </Switch>
           
