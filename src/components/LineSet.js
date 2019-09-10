@@ -11,7 +11,7 @@ export class LineSet extends Component {
         const lineStyle = {
             stroke: 'hsl(255,0%,100%)',
             strokeWidth: '1'
-        }
+        } 
         return (
             <svg width={this.props.width} height={this.props.height} style={svgStyle} >
                 {this.props.lines.map( line => <line

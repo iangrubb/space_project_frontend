@@ -177,11 +177,32 @@ const constellations = [
   )
 ];
 
-const locatedConstellations = constellations.map(cons => {
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  }
+}
+
+shuffleArray(constellations)
+
+const locatedConstellations = constellations.map((cons, idx, array) => {
+
+  const rotation = (idx/array.length) * 2 * Math.PI
+
+  const segment =  (3 * idx) % 13
+
+  const distance = 2700 - ( (idx % 6) * 350)
+
+
   return {
     ...cons,
-    top: Math.floor(Math.random() * (SPACE_HEIGHT - 500)) + 100,
-    left: Math.floor(Math.random() * (SPACE_WIDTH - 500) + 100)
+    distance: distance,
+    rotation: rotation,
+    top: (SPACE_HEIGHT/2) + (distance * Math.sin(rotation)) - 200,
+    left: (SPACE_WIDTH/2) + (distance * Math.cos(rotation)) - 200
   };
 });
 
@@ -191,7 +212,7 @@ export class Space extends Component {
     planets: []
   };
 
-  stars = [...Array(1000).keys()].map(num => {
+  stars = [...Array(2000).keys()].map(num => {
     const left = Math.floor(SPACE_WIDTH * Math.random());
     const top = Math.floor(SPACE_HEIGHT * Math.random());
     const diameter = Math.floor(Math.random() * 3) + 2;
