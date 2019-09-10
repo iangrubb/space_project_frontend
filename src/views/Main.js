@@ -1,17 +1,26 @@
-import React, { Component } from 'react';
-import Space from '../components/Space'
-import Map from '../components/Map'
-import UserInfo from '../components/UserInfo'
-import Favorites from '../components/Favorites'
-import Search from '../components/Search'
-import Details from '../components/Details'
-
+import React, { Component } from "react";
+import Space from "../components/Space";
+import Map from "../components/Map";
+import UserInfo from "../components/UserInfo";
+import Favorites from "../components/Favorites";
+import Search from "../components/Search";
+import Details from "../components/Details";
 
 const SPACE_WIDTH = 6000;
 const SPACE_HEIGHT = 6000;
 
 export class Main extends Component {
-  state = {scrollTop: 0, scrollLeft: 0, windowTop: 0, windowLeft: 0, favoritesShow: false, mapShow: false, searchShow: false, detailsShow: false};
+  state = {
+    scrollTop: 0,
+    scrollLeft: 0,
+    windowTop: 0,
+    windowLeft: 0,
+    favoritesShow: false,
+    mapShow: false,
+    searchShow: false,
+    detailsShow: false,
+    show: ""
+  };
 
   constructor(props) {
     super(props);
@@ -29,18 +38,20 @@ export class Main extends Component {
   }
 
   componentDidMount() {
-    
-    window.addEventListener('resize', this.updateWindowDimensions);
+    window.addEventListener("resize", this.updateWindowDimensions);
     this.updateWindowDimensions();
-    setTimeout(() => this.center(), 100)
+    setTimeout(() => this.center(), 100);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
+    window.removeEventListener("resize", this.updateWindowDimensions);
   }
 
-  updateWindowDimensions = () => this.setState({windowTop: window.innerHeight, windowLeft: window.innerWidth})
-  
+  updateWindowDimensions = () =>
+    this.setState({
+      windowTop: window.innerHeight,
+      windowLeft: window.innerWidth
+    });
 
   handleScroll = e => {
     this.setState({
@@ -49,37 +60,52 @@ export class Main extends Component {
     });
   };
 
-  center = () => this.setState({scrollTop: (SPACE_HEIGHT / 2) - (this.state.windowTop / 2), scrollLeft: (SPACE_WIDTH / 2) - (this.state.windowLeft / 2)})
+  center = () =>
+    this.setState({
+      scrollTop: SPACE_HEIGHT / 2 - this.state.windowTop / 2,
+      scrollLeft: SPACE_WIDTH / 2 - this.state.windowLeft / 2
+    });
 
-  toggleMap = () => this.setState({mapShow: !this.state.mapShow})
+  toggleMap = () => this.setState({ mapShow: !this.state.mapShow });
 
-  toggleFavorites = () => this.setState({favoritesShow: !this.state.favoritesShow})
+  toggleFavorites = () =>
+    this.setState({ favoritesShow: !this.state.favoritesShow });
 
-  toggleSearch = () => this.setState({searchShow: !this.state.searchShow})
+  toggleSearch = () => this.setState({ searchShow: !this.state.searchShow });
 
-  toggleDetails = () => this.setState({detailsShow: !this.state.detailsShow})
-  
+  toggleDetails = () => this.setState({ detailsShow: !this.state.detailsShow });
+
+  showHandler = planetInfo => {
+    this.setState({ show: planetInfo });
+  };
 
   render() {
-      
-      return (
-          <div  style={this.windowFrameStyle}>
-              
-              
+    return (
+      <div style={this.windowFrameStyle}>
+        <div
+          style={this.windowStyle}
+          ref={this.mainScreen}
+          onScroll={this.handleScroll}
+        >
+          <Space show={this.showHandler} />
+        </div>
 
-              <div style={this.windowStyle} ref={this.mainScreen} onScroll={this.handleScroll} >
-                  <Space />
-              </div> 
-
-              < UserInfo logOut={this.props.logOut} toggleFavorites={this.toggleFavorites} username={"Ian"} center={this.center}/>
-              < Favorites show={this.state.favoritesShow} />
-              < Map show={this.state.mapShow} toggleMap={this.toggleMap}/>
-              < Search show={this.state.searchShow} toggleSearch={this.toggleSearch}/>
-              < Details show={this.state.detailsShow} toggleDetails={this.toggleDetails}/>
-              
-
-          </div>
-      )
+        <UserInfo
+          logOut={this.props.logOut}
+          toggleFavorites={this.toggleFavorites}
+          username={"Ian"}
+          center={this.center}
+        />
+        <Favorites show={this.state.favoritesShow} />
+        <Map show={this.state.mapShow} toggleMap={this.toggleMap} />
+        <Search show={this.state.searchShow} toggleSearch={this.toggleSearch} />
+        <Details
+          show={this.state.detailsShow}
+          toggleDetails={this.toggleDetails}
+          planet={this.state.show}
+        />
+      </div>
+    );
   }
 
   windowStyle = {
