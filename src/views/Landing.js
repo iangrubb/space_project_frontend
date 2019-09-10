@@ -92,7 +92,8 @@ export class Landing extends Component {
         } else {
           console.log(data);
           localStorage.setItem("token", data.token);
-          this.props.setUserId(data.user.id);
+          this.props.setUserId(data.user);
+          this.props.setUserPlanets(data.planets);
           this.props.history.push("/space");
         }
       });
@@ -116,9 +117,9 @@ export class Landing extends Component {
     fetch(`${URL}/users`, config)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data);
         localStorage.setItem("token", data.token);
-        this.props.setUserId(data.user.id);
+        this.props.setUserId(data.user);
+        this.props.setUserPlanets(data.planets);
         this.props.history.push("/space");
       });
   };

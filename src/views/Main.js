@@ -23,7 +23,7 @@ export class Main extends Component {
 
     show: undefined,
 
-    planets: [],
+    planets: []
   };
 
   constructor(props) {
@@ -49,12 +49,17 @@ export class Main extends Component {
     console.log("getting planets");
     fetch("http://localhost:3000/planets")
       .then(res => res.json())
-      .then(data =>{
-        
-        const planets = data.map( planet => {return { ...planet, top: Math.floor(Math.random()*5800), left: Math.floor(Math.random()*5800)}})
-        console.log("located planets", planets)
-        this.setState({ planets: planets })
-    });
+      .then(data => {
+        const planets = data.map(planet => {
+          return {
+            ...planet,
+            top: Math.floor(Math.random() * 5800),
+            left: Math.floor(Math.random() * 5800)
+          };
+        });
+        console.log("located planets", planets);
+        this.setState({ planets: planets });
+      });
   }
 
   componentWillUnmount() {
@@ -75,11 +80,24 @@ export class Main extends Component {
   };
 
   zoomTo = (x, y) => {
-    console.log(x, y)
+    console.log(x, y);
     this.setState({
-    scrollLeft: Math.max(0 , Math.min( x - this.state.windowLeft / 2, SPACE_WIDTH - this.state.windowLeft / 2) ),
-    scrollTop: Math.max(0 , Math.min( x - this.state.windowTop / 2, SPACE_HEIGHT - this.state.windowTop / 2) )
-  })}
+      scrollLeft: Math.max(
+        0,
+        Math.min(
+          x - this.state.windowLeft / 2,
+          SPACE_WIDTH - this.state.windowLeft / 2
+        )
+      ),
+      scrollTop: Math.max(
+        0,
+        Math.min(
+          x - this.state.windowTop / 2,
+          SPACE_HEIGHT - this.state.windowTop / 2
+        )
+      )
+    });
+  };
 
   center = () =>
     this.setState({
@@ -92,16 +110,17 @@ export class Main extends Component {
   toggleFavorites = () =>
     this.setState({ favoritesShow: !this.state.favoritesShow });
 
-  toggleSearch = () => this.setState({ searchShow: !this.state.searchShow });
+  toggleSearch = () => {
+    this.setState({ searchShow: !this.state.searchShow });
+  };
 
   toggleDetails = () => this.setState({ detailsShow: !this.state.detailsShow });
 
-
   showHandler = planet => () => {
     if (this.state.show === planet) {
-      this.setState({show: undefined})
+      this.setState({ show: undefined });
     } else {
-      this.setState({ show: planet })
+      this.setState({ show: planet });
     }
   };
 
@@ -113,7 +132,11 @@ export class Main extends Component {
           ref={this.mainScreen}
           onScroll={this.handleScroll}
         >
-        <Space planets={this.state.planets} showHandler={this.showHandler} show={this.state.show} />
+          <Space
+            planets={this.state.planets}
+            showHandler={this.showHandler}
+            show={this.state.show}
+          />
         </div>
 
         <UserInfo
@@ -122,12 +145,29 @@ export class Main extends Component {
           username={"Ian"}
           center={this.center}
         />
-        <Favorites show={this.state.favoritesShow} />
 
-        <Map planets={this.state.planets} scrollLeft={this.state.scrollLeft} scrollTop={this.state.scrollTop} windowLeft={this.state.windowLeft} windowTop={this.state.windowTop} show={this.state.mapShow} toggleMap={this.toggleMap} />
+        <Map
+          planets={this.state.planets}
+          scrollLeft={this.state.scrollLeft}
+          scrollTop={this.state.scrollTop}
+          windowLeft={this.state.windowLeft}
+          windowTop={this.state.windowTop}
+          show={this.state.mapShow}
+          toggleMap={this.toggleMap}
+        />
 
-        <Search zoom={this.zoomTo} showHandler={this.showHandler} planets={this.state.planets} show={this.state.searchShow} toggleSearch={this.toggleSearch} />
+        <Search
+          zoom={this.zoomTo}
+          showHandler={this.showHandler}
+          planets={this.state.planets}
+          show={this.state.searchShow}
+          toggleSearch={this.toggleSearch}
+        />
 
+        <Favorites
+          show={this.state.favoritesShow}
+          userPlanets={this.props.userPlanets}
+        />
         <Details
           show={this.state.detailsShow}
           toggleDetails={this.toggleDetails}
