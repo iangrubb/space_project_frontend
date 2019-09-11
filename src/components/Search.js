@@ -99,49 +99,44 @@ const SearchButton = styled.div`
 `;
 
 export class Search extends Component {
-  state = { search: "" };
 
-  updateSearch = e => this.setState({ search: e.target.value });
+    state = {search: ""}
 
-  handleClick = () => {
-    this.props.toggleSearch();
-    this.setState({ search: "" });
-  };
+    updateSearch = e => this.setState({search: e.target.value})
+    
+    handleClick = () =>  {
+        this.props.toggleSearch()
+        this.setState({search: ''})
+    }
 
-  displayed = () =>
-    this.props.planets.filter(planet =>
-      planet.name.toLowerCase().includes(this.state.search.toLowerCase())
-    );
+    displayed = () => {
+        const fullList = [...this.props.planets, ...this.props.constellations]
+        return fullList.filter( planet => planet.name.includes(this.state.search))}
 
-  selectPlanet = planet => () => {
-    this.props.showHandler(planet)();
-    this.props.zoom(planet.left, planet.top);
-  };
+    selectPlanet = planet => () => {
+        this.props.showHandler(planet)()
+        this.props.zoom(planet.left , planet.top)
+    }
+    
 
-  render() {
-    return (
-      <Container show={this.props.show} typing={this.state.search === ""}>
-        <SearchButton onClick={this.handleClick}>
-          <h3 style={{ margin: "0" }}>Search</h3>
-        </SearchButton>
+    render() {
+        return (
+            <Container show={this.props.show} typing={this.state.search === ""}>
+                <SearchButton onClick={this.handleClick}>
+                    <h3 style={{margin: '0'}}>Search</h3>
+                </SearchButton>
 
-        <SearchField value={this.state.search} onChange={this.updateSearch} />
+                <SearchField value={this.state.search} onChange={this.updateSearch}/>
 
-        <Monitor>
-          {this.state.search === ""
-            ? null
-            : this.displayed().map(planet => (
-                <p
-                  style={{ color: "white" }}
-                  onClick={this.selectPlanet(planet)}
-                >
-                  {planet.name}
-                </p>
-              ))}
-        </Monitor>
-      </Container>
-    );
-  }
+                <Monitor>
+                    {this.state.search === "" ? null : this.displayed().map( planet => 
+                        <p style={{color: 'white'}} onClick={this.selectPlanet(planet)}>{planet.name}</p>
+                    )}
+                </Monitor>
+                
+            </Container>  
+        );
+    }
 }
 
 export default Search;

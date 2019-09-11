@@ -98,16 +98,17 @@ const Box= styled.div`
 
 export class Map extends Component {
 
+    
 
     render() {
         return (
             <Container show={this.props.show}>
                 <Monitor>
-                    <Dot color={"yellow"} top={3000} left={3000}></Dot>
-
                     {this.props.planets.map(planet => {
-                        return <Dot color={"red"} top={planet.top} left={planet.left} ></Dot>
+                        return <Dot color={planet.name === "Sun" ? "yellow": "green"} top={2800 + (planet.distance * Math.sin( Math.PI * planet.rotation /180 ))} left={2800 + (planet.distance * Math.cos(Math.PI * planet.rotation / 180))} ></Dot>
                     })}
+
+                    {this.props.constellations.map(cons => <Dot color={"white"} top={2800 + (cons.distance * Math.sin(cons.rotation))} left={2800 + (cons.distance * Math.cos(cons.rotation))} ></Dot> )}
 
                     <Box top={this.props.scrollTop} left={this.props.scrollLeft} height={this.props.windowTop} width={this.props.windowLeft}></Box>
 

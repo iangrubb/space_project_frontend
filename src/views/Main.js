@@ -6,10 +6,80 @@ import Favorites from "../components/Favorites";
 import Search from "../components/Search";
 import Details from "../components/Details";
 
+import assignConstellationImages from '../helpers/assignConstellations'
+
+import assignPlanetImage from '../helpers/assignImages'
+
 const SPACE_WIDTH = 6000;
 const SPACE_HEIGHT = 6000;
 
+
+
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  }
+}
+
+const placeConstellations = constes => {
+  shuffleArray(constes)
+
+  return constes.map((cons, idx, array) => {
+
+    const rotation = (idx/array.length) * 2 * Math.PI
+  
+    const segment =  (3 * idx) % 19
+  
+    const distance = 2700 - ( segment * 100)
+  
+    return {
+      ...cons,
+      distance: distance,
+      rotation: rotation,
+      image: assignConstellationImages(cons.name)
+    };
+  });
+}
+
+const placePlanets = planets => {
+  
+  const updatedPlanets = planets.map( planet => {
+    const newData = assignPlanetImage(planet.name)
+    return {...planet, ...newData }
+  })
+
+  const solorPlanets = updatedPlanets.filter(planet => planet.order < 10).map( planet => {
+    const rotation = Math.random() * (90 * ((planet.order % 4) + 1 ))
+    const distance = planet.order * 275
+
+    return {...planet, rotation: rotation, distance: distance}
+  })
+
+
+
+  const otherPlanets = updatedPlanets.filter(planet => planet.order === 10).map( planet => {
+    const rotation = ((Math.random() * 10) + 40) * Math.ceil(Math.random() * 4)
+    const distance = 2800 - (Math.random() * 400)
+
+    return {...planet, rotation: rotation, distance: distance}
+  })
+
+  // determine position in solar
+
+  // determine others
+
+  return [...solorPlanets, ...otherPlanets]
+
+}
+  
+
+
+
 export class Main extends Component {
+
   state = {
     scrollTop: 0,
     scrollLeft: 0,
@@ -24,12 +94,12 @@ export class Main extends Component {
     show: undefined,
 
     planets: [],
-    constellation: []
+    constellations: []
   };
-
+  
   constructor(props) {
     super(props);
-    this.mainScreen = React.createRef();
+    this.mainScreen = React.createRef(); 
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -50,19 +120,16 @@ export class Main extends Component {
     fetch("http://localhost:3000/planets")
       .then(res => res.json())
       .then(data => {
-        const planets = data.map(planet => {
-          return {
-            ...planet,
-            top: Math.floor(Math.random() * 5800),
-            left: Math.floor(Math.random() * 5800)
-          };
-        });
+        const planets = placePlanets(data)
         this.setState({ planets: planets });
       });
 
     fetch("http://localhost:3000/constellations")
       .then(res => res.json())
-      .then(data => this.setState({ constellation: data }));
+      .then(data => {
+        const cons =  placeConstellations(data)
+        this.setState({constellations: cons})
+      })
   }
 
   componentWillUnmount() {
@@ -120,6 +187,7 @@ export class Main extends Component {
   toggleDetails = () => this.setState({ detailsShow: !this.state.detailsShow });
 
   showHandler = planet => () => {
+    
     if (this.state.show === planet) {
       this.setState({ show: undefined });
     } else {
@@ -137,10 +205,10 @@ export class Main extends Component {
         >
           <Space
             planets={this.state.planets}
+            constellations={this.state.constellations}
             showHandler={this.showHandler}
             show={this.state.show}
             favoritePlanet={this.props.favoritePlanet}
-            constellations={this.state.constellation}
           />
         </div>
 
@@ -153,6 +221,7 @@ export class Main extends Component {
 
         <Map
           planets={this.state.planets}
+          constellations={this.state.constellations}
           scrollLeft={this.state.scrollLeft}
           scrollTop={this.state.scrollTop}
           windowLeft={this.state.windowLeft}
@@ -165,6 +234,7 @@ export class Main extends Component {
           zoom={this.zoomTo}
           showHandler={this.showHandler}
           planets={this.state.planets}
+          constellations={this.state.constellations}
           show={this.state.searchShow}
           toggleSearch={this.toggleSearch}
         />
