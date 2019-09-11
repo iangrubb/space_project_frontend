@@ -18,8 +18,8 @@ class App extends React.Component {
   };
 
   setUsername = name => {
-    this.setState({ username: name})
-  }
+    this.setState({ username: name });
+  };
 
   favoritePlanet = planet => () => {
     if (!this.state.userPlanets.includes(planet)) {
@@ -68,12 +68,11 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
+          console.log("planets", data);
 
-          console.log("planets", data)
-          
           this.setState({ userId: data.user, username: data.username });
           this.setState({ userPlanets: data.planets });
-          this.props.history.push('/space')
+          this.props.history.push("/space");
         });
     }
   }
@@ -89,8 +88,25 @@ class App extends React.Component {
     return (
       <div style={this.appStyle} className="App">
         <Switch>
-          {/* <Route exact path="/space" render={()=> this.state.userId ? <Main userId={this.state.userId}/> : this.props.history.push('/welcome')}/> */}
           <Route
+            exact
+            path="/space"
+            render={() =>
+              this.state.userId ? (
+                <Main
+                  logOut={this.logOut}
+                  userId={this.state.userId}
+                  userPlanets={this.state.userPlanets}
+                  username={this.state.username}
+                  favoritePlanet={this.favoritePlanet}
+                  unfavoritePlanet={this.unfavoritePlanet}
+                />
+              ) : (
+                this.props.history.push("/welcome")
+              )
+            }
+          />
+          {/* <Route
             exact
             path="/space"
             render={() => (
@@ -103,7 +119,7 @@ class App extends React.Component {
                 unfavoritePlanet={this.unfavoritePlanet}
               />
             )}
-          />
+          /> */}
           <Route
             path="/"
             render={() => (
