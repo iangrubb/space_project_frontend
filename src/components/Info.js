@@ -1,26 +1,34 @@
 import React from "react";
 
-import {Icon} from 'antd'
+import { Icon } from "antd";
 
+const icon = {
+  height: "50",
+  width: "50px",
+  borderRadius: "15px"
+};
 const Info = props => {
   let modalstyle = {
     position: "absolute",
-    height: "125px",
-    width: "100px",
+    height: "100px",
+    width: "125px",
     overflow: "auto",
     display: props.show ? "block" : "none",
-    top: `${props.planet.top - 100}px`,
-    left: `${props.planet.left + 50}px`,
+    top: `${props.planet.top - 105}px`,
+    left: `${props.planet.left}px`,
     backgroundColor: "rgba(0,255,255,.6)",
     borderRadius: "15px",
     textAlign: "center",
-    zIndex: 100
+    zIndex: 100,
+    wordWrap: "break-word"
   };
+
   return (
     <div style={modalstyle}>
-      <span>&times;</span>
       <p>Name:{props.planet.name}</p>
-      <button onClick={props.favoritePlanet}><Icon type="like" /></button>
+      <button onClick={props.favoritePlanet} style={icon}>
+        <Icon type="like" />
+      </button>
     </div>
   );
 };

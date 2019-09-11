@@ -1,110 +1,117 @@
-import React, { Component } from 'react';
-import styled from 'styled-components'
+import React, { Component } from "react";
+import styled from "styled-components";
 
 const Button = styled.input`
+  background: #111111;
+  color: #eeeeee;
 
-    background: #111111;
-    color: #eeeeee;
+  width: 48%;
 
-    width: 48%;
+  border: solid #333333 0.1vw;
 
-    border: solid #333333 .1vw;
-    
-    border-radius: .4vw;
-    padding: 1vh 0;
+  border-radius: 0.4vw;
+  padding: 1vh 0;
 
-    margin: 2vh 0;
+  margin: 2vh 0;
 
-    box-shadow: 0.1vw 0.2vw 0.1vw #333333;
-    transform: translateY(-0.3vh);
+  box-shadow: 0.1vw 0.2vw 0.1vw #333333;
+  transform: translateY(-0.3vh);
 
-    :active {
-        transform: translateY(-0.1vh);
-        box-shadow: 0.02vw 0.04vw 0 #333333;
-    }
-
-`
+  :active {
+    transform: translateY(-0.1vh);
+    box-shadow: 0.02vw 0.04vw 0 #333333;
+  }
+`;
 
 const Input = styled.input`
-    width: 80%;
-    height: 5vh;
-    font-size: 2vh;
+  width: 80%;
+  height: 5vh;
+  font-size: 2vh;
 
-    background: #cccccc;
-    color: #333333;
+  background: #cccccc;
+  color: #333333;
 
-    :focus {
-        outline: none;
-    }
-`
+  :focus {
+    outline: none;
+  }
+`;
 
 export class Form extends Component {
+  state = { name: "", password: "" };
 
-    state={name: "", password: ""}
+  changeHandler = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
 
-    changeHandler = e => {
-        const { name, value } = e.target
-        this.setState({[name]:value})
-    }
+  render() {
+    const containerStyle = {
+      position: "relative",
 
-    render() {
+      width: "26vw",
+      height: "40vh",
 
-        const containerStyle={
+      background:
+        "linear-gradient(48deg, rgba(188,183,200,1) 6%, rgba(123,118,133,1) 15%, rgba(178,172,187,1) 23%, rgba(132,126,143,1) 30%, rgba(176,170,188,1) 37%, rgba(113,108,121,1) 43%, rgba(166,163,171,1) 48%, rgba(128,123,138,1) 52%, rgba(111,103,127,1) 60%, rgba(177,173,187,1) 70%, rgba(149,143,162,1) 77%, rgba(102,97,110,1) 83%, rgba(114,110,122,1) 89%, rgba(171,166,180,1) 95%)",
 
-            position: 'relative',
+      padding: "1vw",
+      borderRadius: "1vw",
 
-            width: '26vw',
-            height: '40vh',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
 
-            background: 'linear-gradient(48deg, rgba(188,183,200,1) 6%, rgba(123,118,133,1) 15%, rgba(178,172,187,1) 23%, rgba(132,126,143,1) 30%, rgba(176,170,188,1) 37%, rgba(113,108,121,1) 43%, rgba(166,163,171,1) 48%, rgba(128,123,138,1) 52%, rgba(111,103,127,1) 60%, rgba(177,173,187,1) 70%, rgba(149,143,162,1) 77%, rgba(102,97,110,1) 83%, rgba(114,110,122,1) 89%, rgba(171,166,180,1) 95%)',
+      zIndex: "2"
+    };
 
-            padding: '1vw',
-            borderRadius: '1vw',
+    const formStyle = {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-evently",
+      alignItems: "flex-start",
 
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+      background: "#eeeeee",
 
-            zIndex: '2',
+      width: "100%",
+      height: "80%",
 
-        }
+      padding: "2vw",
 
-        const formStyle = {
-            display:'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-evently',
-            alignItems: 'flex-start',
+      margin: "0",
 
-            background: '#eeeeee',
-            
-            width: '100%',
-            height: '80%',
-            
-            padding: '2vw',
+      border: "solid #333333 .1vw",
+      boxShadow: "0 0 1vw white",
+      borderRadius: ".4vw"
+    };
 
-            margin: '0',
+    const errorMsg = {
+      margin: "0",
+      padding: "0"
+    };
 
-            border: 'solid #333333 .1vw',
-            boxShadow: '0 0 1vw white',
-            borderRadius: '.4vw',
-
-        }
-
-        return (
-            
-                <div style={containerStyle}>
-                    <form style={formStyle} onSubmit={this.props.submitHandler}>
-                        <h3>Username</h3>
-                        <Input type="text" name="name" value={this.state.name} onChange={this.changeHandler}                />
-                        <p>{this.props.nameError}</p>
-                        <h3>Password</h3>
-                        <Input type="password" name="password" value={this.state.password} onChange={this.changeHandler}                  />
-                        <p>{this.props.pwError}</p>
-                        <Button type="submit" value={this.props.message}                    ></Button>
-                    </form>
-                </div>
-        );
-    }
+    return (
+      <div style={containerStyle}>
+        <form style={formStyle} onSubmit={this.props.submitHandler}>
+          <p style={errorMsg}>{this.props.nameError}</p>
+          <h3>Username</h3>
+          <Input
+            type="text"
+            name="name"
+            value={this.state.name}
+            onChange={this.changeHandler}
+          />
+          <h3>Password</h3>
+          <Input
+            type="password"
+            name="password"
+            value={this.state.password}
+            onChange={this.changeHandler}
+          />
+          <Button type="submit" value={this.props.message}></Button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default Form;
