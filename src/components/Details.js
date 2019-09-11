@@ -40,6 +40,8 @@ const Container = styled.div`
 `;
 
 const Monitor = styled.div`
+  display: flex;
+  justify-content: center;
   width: 90%;
   height: 58%;
 
@@ -93,7 +95,9 @@ export class Details extends Component {
           <h3 style={{ margin: "0" }}>Details</h3>
         </DetailsButton>
         <Monitor>
-          <p style={{color: 'white'}}>{this.props.planet === undefined ? null : this.props.planet.info}</p>
+          <p style={{ color: "white", width: "90%", textAlign: "left" }}>
+            {this.props.planet === undefined ? null : this.props.planet.info}
+          </p>
         </Monitor>
       </Container>
     );

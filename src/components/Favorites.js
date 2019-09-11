@@ -47,16 +47,16 @@ const FaveList = styled.div`
 
 export class Favorites extends Component {
   handleClick = planet => () => {
-
     this.props.showHandler(planet)();
     if (planet.distance === undefined) {
-      console.log("nope")
-      const realPlanet = this.props.possible.find( pla => pla.name === planet.name)
+      console.log("nope");
+      const realPlanet = this.props.possible.find(
+        pla => pla.name === planet.name
+      );
       this.props.zoom(realPlanet.distance, realPlanet.rotation);
     } else {
       this.props.zoom(planet.distance, planet.rotation);
     }
-    
   };
 
   render() {
@@ -69,8 +69,13 @@ export class Favorites extends Component {
               justifyContent: "center"
             }}
           >
-            <p onClick={this.handleClick(planet)}>{planet.name}</p>
-            <button onClick={this.props.unfavoritePlanet(planet)}>
+            <p onClick={this.handleClick(planet)} style={{ color: "white" }}>
+              {planet.name}
+            </p>
+            <button
+              onClick={this.props.unfavoritePlanet(planet)}
+              style={{ margin: "0 0 0 .5vw" }}
+            >
               <Icon type="dislike" />
             </button>
           </div>

@@ -6,35 +6,32 @@ import Favorites from "../components/Favorites";
 import Search from "../components/Search";
 import Details from "../components/Details";
 
-import assignConstellationImages from '../helpers/assignConstellations'
+import assignConstellationImages from "../helpers/assignConstellations";
 
-import assignPlanetImage from '../helpers/assignImages'
+import assignPlanetImage from "../helpers/assignImages";
 
 const SPACE_WIDTH = 6000;
 const SPACE_HEIGHT = 6000;
 
-
-
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
 }
 
 const placeConstellations = constes => {
-  shuffleArray(constes)
+  shuffleArray(constes);
 
   return constes.map((cons, idx, array) => {
+    const rotation = (idx / array.length) * 2 * Math.PI;
 
-    const rotation = (idx/array.length) * 2 * Math.PI   
-  
-    const segment =  (3 * idx) % 19
-  
-    const distance = 2700 - ( segment * 100)
-  
+    const segment = (3 * idx) % 19;
+
+    const distance = 2700 - segment * 100;
+
     return {
       ...cons,
       distance: distance,
@@ -42,42 +39,41 @@ const placeConstellations = constes => {
       image: assignConstellationImages(cons.name)
     };
   });
-}
+};
 
 const placePlanets = planets => {
-  
-  const updatedPlanets = planets.map( planet => {
-    const newData = assignPlanetImage(planet.name)
-    return {...planet, ...newData }
-  })
+  const updatedPlanets = planets.map(planet => {
+    const newData = assignPlanetImage(planet.name);
+    return { ...planet, ...newData };
+  });
 
-  const solarPlanets = updatedPlanets.filter(planet => planet.order < 10).map( planet => {
-    const rotation = Math.random() * (0.5 * Math.PI * ((planet.order % 4) + 1 ))
-    const distance = planet.order * 275
+  const solarPlanets = updatedPlanets
+    .filter(planet => planet.order < 10)
+    .map(planet => {
+      const rotation =
+        Math.random() * (0.5 * Math.PI * ((planet.order % 4) + 1));
+      const distance = planet.order * 275;
 
-    return {...planet, rotation: rotation, distance: distance}
-  })
+      return { ...planet, rotation: rotation, distance: distance };
+    });
 
-  const otherPlanets = updatedPlanets.filter(planet => planet.order === 10).map( planet => {
-    const rotation = ((Math.random() * 10) + 40) * Math.ceil(Math.random() * 4)
-    const distance = 2800 - (Math.random() * 400)
+  const otherPlanets = updatedPlanets
+    .filter(planet => planet.order === 10)
+    .map(planet => {
+      const rotation = (Math.random() * 10 + 40) * Math.ceil(Math.random() * 4);
+      const distance = 2800 - Math.random() * 800;
 
-    return {...planet, rotation: rotation, distance: distance}
-  })
+      return { ...planet, rotation: rotation, distance: distance };
+    });
 
   // determine position in solar
 
   // determine others
 
-  return [...solarPlanets, ...otherPlanets]
-
-}
-  
-
-
+  return [...solarPlanets, ...otherPlanets];
+};
 
 export class Main extends Component {
-
   state = {
     scrollTop: 0,
     scrollLeft: 0,
@@ -94,10 +90,10 @@ export class Main extends Component {
     planets: [],
     constellations: []
   };
-  
+
   constructor(props) {
     super(props);
-    this.mainScreen = React.createRef(); 
+    this.mainScreen = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -118,16 +114,16 @@ export class Main extends Component {
     fetch("http://localhost:3000/planets")
       .then(res => res.json())
       .then(data => {
-        const planets = placePlanets(data)
+        const planets = placePlanets(data);
         this.setState({ planets: planets });
       });
 
     fetch("http://localhost:3000/constellations")
       .then(res => res.json())
       .then(data => {
-        const cons =  placeConstellations(data)
-        this.setState({constellations: cons})
-      })
+        const cons = placeConstellations(data);
+        this.setState({ constellations: cons });
+      });
   }
 
   componentWillUnmount() {
@@ -148,15 +144,14 @@ export class Main extends Component {
   };
 
   zoomTo = (distance, rotation) => {
+    console.log(distance, rotation);
 
-    console.log(distance, rotation)
+    const x = Math.cos(rotation) * distance + SPACE_WIDTH / 2;
+    const y = -Math.sin(rotation) * distance + SPACE_HEIGHT / 2;
 
-    const x = (Math.cos(rotation) * distance) + (SPACE_WIDTH/2)
-    const y = (-Math.sin(rotation) * distance) + (SPACE_HEIGHT/2)
+    console.log(Math.cos(rotation), Math.sin(rotation));
 
-    console.log(Math.cos(rotation), Math.sin(rotation))
-
-    console.log(x, y)
+    console.log(x, y);
 
     const left = Math.max(
       0,
@@ -164,7 +159,7 @@ export class Main extends Component {
         x - this.state.windowLeft / 2,
         SPACE_WIDTH - this.state.windowLeft / 2
       )
-    )
+    );
 
     const top = Math.max(
       0,
@@ -172,14 +167,14 @@ export class Main extends Component {
         y - this.state.windowTop / 2,
         SPACE_HEIGHT - this.state.windowTop / 2
       )
-    )
-    console.log(left, top)
-    
+    );
+    console.log(left, top);
+
     this.setState({
       scrollLeft: left,
       scrollTop: top
     });
-  }
+  };
 
   center = () =>
     this.setState({
@@ -199,7 +194,6 @@ export class Main extends Component {
   toggleDetails = () => this.setState({ detailsShow: !this.state.detailsShow });
 
   showHandler = planet => () => {
-    
     if (this.state.show === planet) {
       this.setState({ show: undefined });
     } else {
@@ -257,7 +251,7 @@ export class Main extends Component {
           show={this.state.favoritesShow}
           userPlanets={this.props.userPlanets}
           unfavoritePlanet={this.props.unfavoritePlanet}
-          possible={[...this.state.planets , ...this.state.constellations]}
+          possible={[...this.state.planets, ...this.state.constellations]}
         />
         <Details
           show={this.state.detailsShow}

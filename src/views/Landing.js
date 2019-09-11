@@ -201,7 +201,7 @@ export class Landing extends Component {
     return (
       <div style={pageStyle}>
         <div style={titleWrapper}>
-          <h1 style={titleStyle}>Title</h1>
+          <h1 style={titleStyle}>Space Bar</h1>
         </div>
 
         <div style={formContainerStyle}>
