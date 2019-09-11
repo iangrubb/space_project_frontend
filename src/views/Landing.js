@@ -93,6 +93,7 @@ export class Landing extends Component {
           this.setState({ error: "" });
           localStorage.setItem("token", data.token);
           this.props.setUserId(data.user);
+          this.props.setUsername(data.username);
           this.props.setUserPlanets(data.planets);
           this.props.history.push("/space");
         }
@@ -101,7 +102,6 @@ export class Landing extends Component {
 
   signUpHandler = e => {
     e.preventDefault();
-
     const config = {
       method: "POST",
       body: JSON.stringify({
@@ -123,6 +123,7 @@ export class Landing extends Component {
           this.setState({ error: "" });
           localStorage.setItem("token", data.token);
           this.props.setUserId(data.user);
+          this.props.setUsername(data.username);
           this.props.setUserPlanets(data.planets);
           this.props.history.push("/space");
         }
