@@ -70,8 +70,6 @@ export class Landing extends Component {
 
   logInHandler = e => {
     e.preventDefault();
-    console.log(e.target.name.value, e.target.password.value);
-
     const config = {
       method: "POST",
       body: JSON.stringify({
@@ -90,7 +88,6 @@ export class Landing extends Component {
         if (data.errors) {
           console.log(data.errors);
         } else {
-          console.log(data);
           localStorage.setItem("token", data.token);
           this.props.setUserId(data.user);
           this.props.setUserPlanets(data.planets);

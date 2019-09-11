@@ -23,7 +23,8 @@ export class Main extends Component {
 
     show: undefined,
 
-    planets: []
+    planets: [],
+    constellation: []
   };
 
   constructor(props) {
@@ -46,7 +47,6 @@ export class Main extends Component {
     this.updateWindowDimensions();
     setTimeout(() => this.center(), 100);
 
-    console.log("getting planets");
     fetch("http://localhost:3000/planets")
       .then(res => res.json())
       .then(data => {
@@ -57,9 +57,12 @@ export class Main extends Component {
             left: Math.floor(Math.random() * 5800)
           };
         });
-        console.log("located planets", planets);
         this.setState({ planets: planets });
       });
+
+    fetch("http://localhost:3000/constellations")
+      .then(res => res.json())
+      .then(data => this.setState({ constellation: data }));
   }
 
   componentWillUnmount() {
@@ -137,6 +140,7 @@ export class Main extends Component {
             showHandler={this.showHandler}
             show={this.state.show}
             favoritePlanet={this.props.favoritePlanet}
+            constellations={this.state.constellation}
           />
         </div>
 

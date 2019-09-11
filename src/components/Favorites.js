@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import {Icon} from 'antd'
+import { Icon } from "antd";
 
 const Container = styled.div`
 
@@ -46,22 +46,32 @@ const FaveList = styled.div`
 `;
 
 export class Favorites extends Component {
-
-
   handleClick = planet => () => {
-    this.props.showHandler(planet)()
-    this.props.zoom(planet.left, planet.top)
-    console.log("hit")
-  }
+    this.props.showHandler(planet)();
+    this.props.zoom(planet.left, planet.top);
+    console.log("hit");
+  };
 
   render() {
-    console.log(`favorite component`, this.props.userPlanets);
-    let planets = this.props.userPlanets.map(planet => <div style={{display:'flex', alignItems:'center', justifyContent: 'center'}}><p onClick={this.handleClick(planet)}>{planet.name}</p><button onClick={this.props.unfavoritePlanet(planet)}><Icon type="dislike" /></button></div>);
+    let planets = this.props.userPlanets
+      ? this.props.userPlanets.map(planet => (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <p onClick={this.handleClick(planet)}>{planet.name}</p>
+            <button onClick={this.props.unfavoritePlanet(planet)}>
+              <Icon type="dislike" />
+            </button>
+          </div>
+        ))
+      : null;
     return (
       <Container show={this.props.show}>
-        <FaveList>
-          {planets}
-        </FaveList>
+        <FaveList>{planets}</FaveList>
       </Container>
     );
   }

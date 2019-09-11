@@ -19,21 +19,35 @@ class App extends React.Component {
 
   favoritePlanet = planet => () => {
     if (!this.state.userPlanets.includes(planet)) {
-      this.setState({userPlanets: [...this.state.userPlanets, planet]})
+      fetch(`${URL}/users/${this.state.userId}/favorites`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json"
+        },
+        body: JSON.stringify({
+          user: this.state.userId,
+          planet: planet.id
+        })
+      });
+      this.setState({ userPlanets: [...this.state.userPlanets, planet] });
     }
     // AND THEN FETCH
-  }
+  };
 
   unfavoritePlanet = planet => e => {
-    e.stopPropagation()
-    this.setState({userPlanets: this.state.userPlanets.filter( p => planet.id !== p.id)})
+    e.stopPropagation();
+    fetch(`${URL}/users/${this.state.userId}/planets/${planet.id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    });
+    this.setState({
+      userPlanets: this.state.userPlanets.filter(p => planet.id !== p.id)
+    });
     // AND THEN FETCH
-  }
-  
-
+  };
 
   logOut = () => {
-    console.log(this.state, localStorage.getItem("token"));
     this.setState({ userId: null });
     localStorage.removeItem("token");
     this.props.history.push("/welcome");
@@ -65,7 +79,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(`APP`, this.state.userId);
     return (
       <div style={this.appStyle} className="App">
         <Switch>

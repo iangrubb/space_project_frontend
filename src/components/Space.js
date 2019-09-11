@@ -111,6 +111,7 @@ const constellations = [
   processRawConstellation(
     `<Graph indexType="custom" height="400" width="400" nodes={[{label:0,center:{x:267.2,y:98.5}},{label:4,center:{x:308.6,y:270.5}},{label:11,center:{x:143,y:64.3}},{label:12,center:{x:110.6,y:299.4}},{label:10,center:{x:320.5,y:354.3}}]} edges={[{source:2,target:0},{source:0,target:1},{source:1,target:4},{source:2,target:3},{source:3,target:1}]} />`
   ),
+
   // Crater
   processRawConstellation(
     `<Graph indexType="custom" height="400" width="400" nodes={[{label:0,center:{x:222.2,y:99.2}},{label:4,center:{x:261,y:186.4}},{label:11,center:{x:152.3,y:61.6}},{label:12,center:{x:221.2,y:260.3}},{label:10,center:{x:376.2,y:262.9}},{label:1,center:{x:306,y:376.2}},{label:2,center:{x:98.7,y:282.8}},{label:3,center:{x:43,y:250.4}}]} edges={[{source:2,target:0},{source:0,target:1},{source:1,target:4},{source:3,target:1},{source:7,target:6},{source:6,target:3},{source:5,target:3},{source:4,target:5}]} />`
@@ -127,6 +128,7 @@ const constellations = [
   processRawConstellation(
     `<Graph indexType="custom" height="400" width="400" nodes={[{label:0,center:{x:109.6,y:142.2}},{label:4,center:{x:154.3,y:167.9}},{label:12,center:{x:36.4,y:225.2}},{label:2,center:{x:119.2,y:215.3}},{label:3,center:{x:62.3,y:289.4}},{label:5,center:{x:76.2,y:244.4}},{label:1,center:{x:281.5,y:400.7}},{label:6,center:{x:170.2,y:363.6}},{label:7,center:{x:302.6,y:337.8}},{label:8,center:{x:215.9,y:310.6}},{label:9,center:{x:147.7,y:304}},{label:10,center:{x:80.1,y:143.1}},{label:11,center:{x:190.1,y:113.3}},{label:13,center:{x:250.3,y:219.2}},{label:14,center:{x:307.9,y:266.9}},{label:15,center:{x:323.8,y:229.2}},{label:16,center:{x:355,y:224.5}},{label:17,center:{x:381.5,y:208}},{label:18,center:{x:336.4,y:179.5}}]} edges={[{source:6,target:7},{source:7,target:10},{source:10,target:9},{source:9,target:8},{source:5,target:2},{source:4,target:5},{source:5,target:3},{source:5,target:10},{source:11,target:0},{source:0,target:1},{source:1,target:3},{source:12,target:1},{source:13,target:14},{source:1,target:13},{source:13,target:15},{source:15,target:16},{source:16,target:17}]} />`
   ),
+
   // Hercules
   processRawConstellation(
     `<Graph indexType="custom" height="400" width="400" nodes={[{label:0,center:{x:64.5,y:172.7}},{label:4,center:{x:137.8,y:181.1}},{label:12,center:{x:32.5,y:287.4}},{label:2,center:{x:177.5,y:189.4}},{label:3,center:{x:91.4,y:282.8}},{label:5,center:{x:59.6,y:272.2}},{label:1,center:{x:314.6,y:349}},{label:6,center:{x:126.5,y:300}},{label:7,center:{x:285.4,y:321.2}},{label:8,center:{x:202.6,y:250.4}},{label:9,center:{x:166.9,y:310.6}},{label:10,center:{x:105.3,y:74.2}},{label:11,center:{x:155.6,y:113.3}},{label:13,center:{x:236.4,y:168.2}},{label:14,center:{x:243.7,y:242.4}},{label:15,center:{x:366.2,y:123.2}},{label:16,center:{x:326.5,y:96.7}},{label:17,center:{x:289.4,y:76.2}},{label:18,center:{x:260.9,y:120.6}},{label:19,center:{x:317.9,y:389.4}},{label:20,center:{x:366.9,y:308}},{label:21,center:{x:190.1,y:388.8}}]} edges={[{source:3,target:13},{source:13,target:14},{source:14,target:9},{source:3,target:9},{source:13,target:18},{source:18,target:17},{source:16,target:17},{source:16,target:15},{source:3,target:1},{source:1,target:0},{source:0,target:11},{source:9,target:10},{source:10,target:7},{source:7,target:4},{source:4,target:5},{source:5,target:2},{source:19,target:6},{source:6,target:8},{source:8,target:14}]} />`
@@ -151,6 +153,7 @@ const constellations = [
   processRawConstellation(
     `<Graph indexType="custom" height="400" width="400" nodes={[{label:3,center:{x:203.3,y:319.2}},{label:7,center:{x:125.2,y:341.1}},{label:10,center:{x:263.6,y:140.4}},{label:11,center:{x:310.6,y:98}},{label:1,center:{x:257.6,y:76.2}},{label:0,center:{x:188.7,y:168.9}},{label:2,center:{x:158.9,y:357.6}},{label:4,center:{x:105.3,y:377.5}},{label:9,center:{x:384.8,y:93.4}},{label:5,center:{x:80.8,y:85.5}},{label:6,center:{x:54.3,y:122.5}}]} edges={[{source:4,target:2},{source:2,target:3},{source:3,target:4},{source:2,target:0},{source:0,target:1},{source:1,target:5},{source:5,target:2}]} />`
   ),
+
   // Orion
   processRawConstellation(
     `<Graph indexType="custom" height="400" width="400" nodes={[{label:3,center:{x:201.3,y:253.7}},{label:7,center:{x:169.5,y:256.3}},{label:10,center:{x:229.8,y:241.7}},{label:11,center:{x:218.5,y:150.4}},{label:1,center:{x:171.5,y:123.2}},{label:0,center:{x:133.8,y:172.2}},{label:2,center:{x:153,y:370.2}},{label:4,center:{x:268.9,y:344.4}},{label:9,center:{x:353.6,y:141.1}},{label:5,center:{x:58.9,y:95.4}},{label:6,center:{x:94,y:153.7}},{label:8,center:{x:85.4,y:79.5}},{label:12,center:{x:67.5,y:25.8}},{label:14,center:{x:101.3,y:25.8}},{label:13,center:{x:258.9,y:274.9}},{label:15,center:{x:356.3,y:172.9}},{label:16,center:{x:341.7,y:222.5}},{label:17,center:{x:321.9,y:245.1}},{label:18,center:{x:347.7,y:104}},{label:20,center:{x:353.6,y:28.5}},{label:19,center:{x:328.5,y:41.7}},{label:21,center:{x:319.2,y:101.3}},{label:22,center:{x:187.4,y:289.4}},{label:23,center:{x:205.3,y:323.9}},{label:24,center:{x:233.1,y:327.2}}]} edges={[{source:3,target:4},{source:0,target:1},{source:1,target:5},{source:4,target:5},{source:0,target:2},{source:2,target:3},{source:13,target:11},{source:12,target:9},{source:9,target:10},{source:11,target:10},{source:5,target:10},{source:2,target:14},{source:14,target:7},{source:7,target:6},{source:1,target:6},{source:3,target:8},{source:8,target:15},{source:17,target:16},{source:16,target:15},{source:18,target:8},{source:20,target:18},{source:20,target:19}]} />`
@@ -179,30 +182,28 @@ const constellations = [
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
 }
 
-shuffleArray(constellations)
+shuffleArray(constellations);
 
 const locatedConstellations = constellations.map((cons, idx, array) => {
+  const rotation = (idx / array.length) * 2 * Math.PI;
 
-  const rotation = (idx/array.length) * 2 * Math.PI
+  const segment = (3 * idx) % 13;
 
-  const segment =  (3 * idx) % 13
-
-  const distance = 2700 - ( (idx % 6) * 350)
-
+  const distance = 2700 - (idx % 6) * 350;
 
   return {
     ...cons,
     distance: distance,
     rotation: rotation,
-    top: (SPACE_HEIGHT/2) + (distance * Math.sin(rotation)) - 200,
-    left: (SPACE_WIDTH/2) + (distance * Math.cos(rotation)) - 200
+    top: SPACE_HEIGHT / 2 + distance * Math.sin(rotation) - 200,
+    left: SPACE_WIDTH / 2 + distance * Math.cos(rotation) - 200
   };
 });
 
@@ -226,7 +227,6 @@ export class Space extends Component {
     };
   });
 
-  
   render() {
     // can used on a div to prevent scroll
     const prevent = {
@@ -237,14 +237,21 @@ export class Space extends Component {
     };
     return (
       <div style={this.spaceStyle}>
-       
         {locatedConstellations.map(cons => (
           <Constellation {...cons} />
         ))}
 
-        {this.props.planets.filter(planet => planet.withInSolarSystem).map(planet => (
-          <Planet favoritePlanet={this.props.favoritePlanet(planet)} key={planet.id} planet={planet} showHandler={this.props.showHandler(planet)} show={this.props.show === planet} />
-        ))}
+        {this.props.planets
+          .filter(planet => planet.withInSolarSystem)
+          .map(planet => (
+            <Planet
+              favoritePlanet={this.props.favoritePlanet(planet)}
+              key={planet.id}
+              planet={planet}
+              showHandler={this.props.showHandler(planet)}
+              show={this.props.show === planet}
+            />
+          ))}
 
         {this.stars.map((star, index) => (
           <Star key={index} {...star} />
