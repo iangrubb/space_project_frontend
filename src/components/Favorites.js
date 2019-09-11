@@ -47,8 +47,16 @@ const FaveList = styled.div`
 
 export class Favorites extends Component {
   handleClick = planet => () => {
+
     this.props.showHandler(planet)();
-    this.props.zoom(planet.left, planet.top);
+    if (planet.distance === undefined) {
+      console.log("nope")
+      const realPlanet = this.props.possible.find( pla => pla.name === planet.name)
+      this.props.zoom(realPlanet.distance, realPlanet.rotation);
+    } else {
+      this.props.zoom(planet.distance, planet.rotation);
+    }
+    
   };
 
   render() {

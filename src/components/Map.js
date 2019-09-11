@@ -105,10 +105,10 @@ export class Map extends Component {
             <Container show={this.props.show}>
                 <Monitor>
                     {this.props.planets.map(planet => {
-                        return <Dot color={planet.name === "Sun" ? "yellow": "green"} top={2800 + (planet.distance * Math.sin( Math.PI * planet.rotation /180 ))} left={2800 + (planet.distance * Math.cos(Math.PI * planet.rotation / 180))} ></Dot>
+                        return <Dot color={planet.name === "Sun" ? "yellow": "green"} top={2800 + (planet.distance * -Math.sin(planet.rotation))} left={2800 + (planet.distance * Math.cos(planet.rotation))} ></Dot>
                     })}
 
-                    {this.props.constellations.map(cons => <Dot color={"white"} top={2800 + (cons.distance * Math.sin(cons.rotation))} left={2800 + (cons.distance * Math.cos(cons.rotation))} ></Dot> )}
+                    {this.props.constellations.map(cons => <Dot color={"white"} top={2800 + (cons.distance * -Math.sin(cons.rotation))} left={2800 + (cons.distance * Math.cos(cons.rotation))} ></Dot> )}
 
                     <Box top={this.props.scrollTop} left={this.props.scrollLeft} height={this.props.windowTop} width={this.props.windowLeft}></Box>
 

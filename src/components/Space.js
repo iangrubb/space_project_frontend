@@ -44,7 +44,6 @@ export class Space extends Component {
         ))}
 
         {this.props.planets
-          .filter(planet => planet.withInSolarSystem)
           .map(planet => (
             <Planet
               favoritePlanet={this.props.favoritePlanet(planet)}

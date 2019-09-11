@@ -29,7 +29,7 @@ const placeConstellations = constes => {
 
   return constes.map((cons, idx, array) => {
 
-    const rotation = (idx/array.length) * 2 * Math.PI
+    const rotation = (idx/array.length) * 2 * Math.PI   
   
     const segment =  (3 * idx) % 19
   
@@ -51,14 +51,12 @@ const placePlanets = planets => {
     return {...planet, ...newData }
   })
 
-  const solorPlanets = updatedPlanets.filter(planet => planet.order < 10).map( planet => {
-    const rotation = Math.random() * (90 * ((planet.order % 4) + 1 ))
+  const solarPlanets = updatedPlanets.filter(planet => planet.order < 10).map( planet => {
+    const rotation = Math.random() * (0.5 * Math.PI * ((planet.order % 4) + 1 ))
     const distance = planet.order * 275
 
     return {...planet, rotation: rotation, distance: distance}
   })
-
-
 
   const otherPlanets = updatedPlanets.filter(planet => planet.order === 10).map( planet => {
     const rotation = ((Math.random() * 10) + 40) * Math.ceil(Math.random() * 4)
@@ -71,7 +69,7 @@ const placePlanets = planets => {
 
   // determine others
 
-  return [...solorPlanets, ...otherPlanets]
+  return [...solarPlanets, ...otherPlanets]
 
 }
   
@@ -149,25 +147,39 @@ export class Main extends Component {
     });
   };
 
-  zoomTo = (x, y) => {
-    console.log(x, y);
-    this.setState({
-      scrollLeft: Math.max(
-        0,
-        Math.min(
-          x - this.state.windowLeft / 2,
-          SPACE_WIDTH - this.state.windowLeft / 2
-        )
-      ),
-      scrollTop: Math.max(
-        0,
-        Math.min(
-          x - this.state.windowTop / 2,
-          SPACE_HEIGHT - this.state.windowTop / 2
-        )
+  zoomTo = (distance, rotation) => {
+
+    console.log(distance, rotation)
+
+    const x = (Math.cos(rotation) * distance) + (SPACE_WIDTH/2)
+    const y = (-Math.sin(rotation) * distance) + (SPACE_HEIGHT/2)
+
+    console.log(Math.cos(rotation), Math.sin(rotation))
+
+    console.log(x, y)
+
+    const left = Math.max(
+      0,
+      Math.min(
+        x - this.state.windowLeft / 2,
+        SPACE_WIDTH - this.state.windowLeft / 2
       )
+    )
+
+    const top = Math.max(
+      0,
+      Math.min(
+        y - this.state.windowTop / 2,
+        SPACE_HEIGHT - this.state.windowTop / 2
+      )
+    )
+    console.log(left, top)
+    
+    this.setState({
+      scrollLeft: left,
+      scrollTop: top
     });
-  };
+  }
 
   center = () =>
     this.setState({
@@ -215,7 +227,7 @@ export class Main extends Component {
         <UserInfo
           logOut={this.props.logOut}
           toggleFavorites={this.toggleFavorites}
-          username={"Ian"}
+          username={this.props.username}
           center={this.center}
         />
 
@@ -245,6 +257,7 @@ export class Main extends Component {
           show={this.state.favoritesShow}
           userPlanets={this.props.userPlanets}
           unfavoritePlanet={this.props.unfavoritePlanet}
+          possible={[...this.state.planets , ...this.state.constellations]}
         />
         <Details
           show={this.state.detailsShow}

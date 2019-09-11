@@ -12,20 +12,16 @@ const Container = styled.div`
 
   z-index:2;
 
-  transform: rotate(${props => props.rotation}deg) translateX(${props =>
-  props.distance}px) rotate(-${props => props.rotation}deg);
-  
+  transform: rotate(-${props => props.rotation}deg) translateX(${props => props.distance}px) rotate(${props => props.rotation}deg);
+   
 };
 `;
 
 export default class Planet extends Component {
   render() {
     return (
-      <Container
-        onClick={this.props.showHandler}
-        rotation={this.props.planet.rotation}
-        distance={this.props.planet.distance}
-      >
+      <Container onClick={this.props.showHandler} rotation={this.props.planet.rotation * (180/Math.PI)}
+      distance={this.props.planet.distance}>
         <img
           style={{ height: "100px", width: "100px" }}
           src={this.props.planet.image}
