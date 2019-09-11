@@ -45,6 +45,8 @@ const Monitor = styled.div`
   width: 80%;
   height: 58%;
 
+  overflow: scroll;
+
   border: 0.2vw double #eeeeee;
 
   border-radius: 0.4vw;
@@ -100,7 +102,7 @@ const SearchButton = styled.div`
 
 export class Search extends Component {
 
-    state = {search: ""}
+    state = {search: ""} 
 
     updateSearch = e => this.setState({search: e.target.value})
     
@@ -111,11 +113,11 @@ export class Search extends Component {
 
     displayed = () => {
         const fullList = [...this.props.planets, ...this.props.constellations]
-        return fullList.filter( planet => planet.name.includes(this.state.search))}
+        return fullList.filter( planet => planet.name.toLowerCase().includes(this.state.search.toLowerCase()))}
 
     selectPlanet = planet => () => {
         this.props.showHandler(planet)()
-        this.props.zoom(planet.left , planet.top)
+        this.props.zoom(planet.distance , planet.rotation)
     }
     
 

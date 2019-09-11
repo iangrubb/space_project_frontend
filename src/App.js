@@ -7,7 +7,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 const URL = "http://localhost:3000";
 
 class App extends React.Component {
-  state = { userId: null, userPlanets: [] };
+  state = { userId: null, username: null, userPlanets: [] };
 
   setUserId = number => {
     this.setState({ userId: number });
@@ -16,6 +16,10 @@ class App extends React.Component {
   setUserPlanets = number => {
     this.setState({ userPlanets: number });
   };
+
+  setUsername = name => {
+    this.setState({ username: name})
+  }
 
   favoritePlanet = planet => () => {
     if (!this.state.userPlanets.includes(planet)) {
@@ -64,9 +68,12 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          this.setState({ userId: data.user });
+
+          console.log("planets", data)
+          
+          this.setState({ userId: data.user, username: data.username });
           this.setState({ userPlanets: data.planets });
-          // this.props.history.push('/space')
+          this.props.history.push('/space')
         });
     }
   }
@@ -91,6 +98,7 @@ class App extends React.Component {
                 logOut={this.logOut}
                 userId={this.state.userId}
                 userPlanets={this.state.userPlanets}
+                username={this.state.username}
                 favoritePlanet={this.favoritePlanet}
                 unfavoritePlanet={this.unfavoritePlanet}
               />
@@ -102,6 +110,7 @@ class App extends React.Component {
               <Landing
                 setUserId={this.setUserId}
                 setUserPlanets={this.setUserPlanets}
+                setUsername={this.setUsername}
               />
             )}
           />

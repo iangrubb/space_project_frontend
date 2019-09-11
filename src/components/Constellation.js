@@ -14,10 +14,10 @@ const Positioned = styled.div`
     width: 400px;
     height: 400px;
 
-    transform: rotate(${props=> props.offset}deg) translateX(${props => props.distance}px) rotate(-${props => props.offset}deg);
+    transform: rotate(-${props=> props.offset}deg) translateX(${props => props.distance}px) rotate(${props => props.offset}deg);
 
 `
-
+ 
 export class Constellation extends Component {
  
     render() {

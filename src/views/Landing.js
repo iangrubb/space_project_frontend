@@ -115,6 +115,7 @@ export class Landing extends Component {
       .then(resp => resp.json())
       .then(data => {
         localStorage.setItem("token", data.token);
+        this.props.setUsername(data.username)
         this.props.setUserId(data.user);
         this.props.setUserPlanets(data.planets);
         this.props.history.push("/space");
