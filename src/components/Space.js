@@ -10,7 +10,7 @@ const SPACE_HEIGHT = 6000;
 
 export class Space extends Component {
 
-  stars = [...Array(2000).keys()].map(num => {
+  stars = [...Array(3000).keys()].map(num => {
     const left = Math.floor(SPACE_WIDTH * Math.random());
     const top = Math.floor(SPACE_HEIGHT * Math.random());
     const diameter = Math.floor(Math.random() * 3) + 2;
