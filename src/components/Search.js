@@ -96,7 +96,9 @@ export class Search extends Component {
         this.setState({search: ''})
     }
 
-    displayed = () => this.props.planets.filter( planet => planet.name.includes(this.state.search))
+    displayed = () => {
+        const fullList = [...this.props.planets] //Add constellations when they have names ...this.props.constellations
+        fullList.filter( planet => planet.name.includes(this.state.search))}
 
     selectPlanet = planet => () => {
         this.props.showHandler(planet)()

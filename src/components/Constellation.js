@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Star from './Star'
 import LineSet from './LineSet'
+import Info from './Info'
 
 import styled, { keyframes } from 'styled-components'
 
@@ -18,16 +19,12 @@ const Positioned = styled.div`
 `
 
 export class Constellation extends Component {
-
-
-    // Props:  top, left, stars, lines
-    
-
+ 
     render() {
         return (
              
-            <Positioned distance={this.props.distance} offset={this.props.rotation * (360/Math.PI)} >
-                {this.props.stars.map(star => <Star
+            <Positioned onClick={this.props.showHandler} distance={this.props.cons.distance} offset={this.props.cons.rotation * (180/Math.PI)} >
+                {this.props.cons.stars.map(star => <Star
                     key={star.star_id}
                     diameter={8}
                     color={'hsl(0, 0%,100%)'}
@@ -36,8 +33,14 @@ export class Constellation extends Component {
                     left={star.x}
                     top={star.y}
                 />)}
-                <LineSet lines={this.props.lines} top={0} left={0} height={400} width={400} />
+                <LineSet lines={this.props.cons.lines} top={0} left={0} height={400} width={400} />
+                <Info
+                    favoritePlanet={this.props.favoritePlanet}
+                    planet={this.props.cons}
+                    show={this.props.show}
+                />
             </Positioned>
+            
             )}
                 
             

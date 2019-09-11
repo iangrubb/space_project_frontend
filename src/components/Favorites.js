@@ -51,11 +51,9 @@ export class Favorites extends Component {
   handleClick = planet => () => {
     this.props.showHandler(planet)()
     this.props.zoom(planet.left, planet.top)
-    console.log("hit")
   }
 
   render() {
-    console.log(`favorite component`, this.props.userPlanets);
     let planets = this.props.userPlanets.map(planet => <div style={{display:'flex', alignItems:'center', justifyContent: 'center'}}><p onClick={this.handleClick(planet)}>{planet.name}</p><button onClick={this.props.unfavoritePlanet(planet)}><Icon type="dislike" /></button></div>);
     return (
       <Container show={this.props.show}>
