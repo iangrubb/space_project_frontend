@@ -40,18 +40,19 @@ const URL = "http://localhost:3000";
 export class Landing extends Component {
   state = {
     starShift: 0,
-    menu: null
+    menu: null,
+    error: ""
   };
 
   setMenu = menuName => () => {
-    this.setState({ menu: menuName });
+    this.setState({ menu: menuName }, this.setState({ error: "" }));
   };
 
-  componentDidMount() {
-    // setInterval(() => {
-    //   this.setState({ starShift: this.state.starShift + 4 });
-    // }, 100);
-  }
+  // componentDidMount() {
+  // setInterval(() => {
+  //   this.setState({ starShift: this.state.starShift + 4 });
+  // }, 100);
+  // }
 
   stars = [...Array(400).keys()].map(num => {
     const left = Math.floor(1800 * Math.random());
@@ -86,8 +87,10 @@ export class Landing extends Component {
       .then(resp => resp.json())
       .then(data => {
         if (data.errors) {
+          this.setState({ error: data.errors });
           console.log(data.errors);
         } else {
+          this.setState({ error: "" });
           localStorage.setItem("token", data.token);
           this.props.setUserId(data.user);
           this.props.setUserPlanets(data.planets);
@@ -114,10 +117,15 @@ export class Landing extends Component {
     fetch(`${URL}/users`, config)
       .then(resp => resp.json())
       .then(data => {
-        localStorage.setItem("token", data.token);
-        this.props.setUserId(data.user);
-        this.props.setUserPlanets(data.planets);
-        this.props.history.push("/space");
+        if (data.errors) {
+          this.setState({ error: data.errors[0] });
+        } else {
+          this.setState({ error: "" });
+          localStorage.setItem("token", data.token);
+          this.props.setUserId(data.user);
+          this.props.setUserPlanets(data.planets);
+          this.props.history.push("/space");
+        }
       });
   };
 
@@ -213,10 +221,18 @@ export class Landing extends Component {
         </div>
 
         {this.state.menu === "Sign Up" ? (
-          <Form submitHandler={this.signUpHandler} message={"Sign Up!"} />
+          <Form
+            submitHandler={this.signUpHandler}
+            message={"Sign Up!"}
+            nameError={this.state.error}
+          />
         ) : null}
         {this.state.menu === "Log In" ? (
-          <Form submitHandler={this.logInHandler} message={"Log In!"} />
+          <Form
+            submitHandler={this.logInHandler}
+            message={"Log In!"}
+            nameError={this.state.error}
+          />
         ) : null}
 
         {this.stars.map((star, index) => (

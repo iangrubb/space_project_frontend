@@ -49,7 +49,6 @@ export class Favorites extends Component {
   handleClick = planet => () => {
     this.props.showHandler(planet)();
     this.props.zoom(planet.left, planet.top);
-    console.log("hit");
   };
 
   render() {
