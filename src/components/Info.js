@@ -5,11 +5,12 @@ import { Icon } from "antd";
 const Info = props => {
   let modalstyle = {
     position: "absolute",
-    height: "100px",
-    width: "125px",
+    height: "100%",
+    width: "100%",
     overflow: "auto",
     display: props.show ? "block" : "none",
-    backgroundColor: "rgba(0,255,255,.6)",
+    backgroundColor: "hsla(0,0%,50%,.2)",
+    border: "3px solid white",
     borderRadius: "15px",
     textAlign: "center",
     zIndex: 100,
@@ -17,10 +18,18 @@ const Info = props => {
   };
   return (
     <div style={modalstyle}>
-      <p>Name:{props.planet.name}</p>
-      <button onClick={props.favoritePlanet}>
-        <Icon type="like" />
-      </button>
+      <span
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <h3 style={{ color: "white" }}>{props.planet.name}</h3>
+        <button onClick={props.favoritePlanet} style={{ margin: "0 0 0 .5vw" }}>
+          <Icon type="like" />
+        </button>
+      </span>
     </div>
   );
 };
