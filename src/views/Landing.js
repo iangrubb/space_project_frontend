@@ -35,7 +35,7 @@ const FormContainer = styled.div`
   justify-content: ${props => (props.flag ? "flex-start" : "flex-end")};
 `;
 
-const URL = "http://localhost:3000";
+const URL = "https://stormy-cliffs-69535.herokuapp.com";
 
 export class Landing extends Component {
   state = {

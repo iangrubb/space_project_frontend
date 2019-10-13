@@ -111,14 +111,14 @@ export class Main extends Component {
     this.updateWindowDimensions();
     setTimeout(() => this.center(), 100);
 
-    fetch("http://localhost:3000/planets")
+    fetch("https://stormy-cliffs-69535.herokuapp.com/planets")
       .then(res => res.json())
       .then(data => {
         const planets = placePlanets(data);
         this.setState({ planets: planets });
       });
 
-    fetch("http://localhost:3000/constellations")
+    fetch("https://stormy-cliffs-69535.herokuapp.com/constellations")
       .then(res => res.json())
       .then(data => {
         const cons = placeConstellations(data);

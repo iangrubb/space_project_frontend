@@ -4,7 +4,7 @@ import Main from "./views/Main";
 import Landing from "./views/Landing";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-const URL = "http://localhost:3000";
+const URL = "https://stormy-cliffs-69535.herokuapp.com";
 
 class App extends React.Component {
   state = { userId: null, username: null, userPlanets: [] };
