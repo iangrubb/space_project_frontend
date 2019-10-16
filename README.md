@@ -4,7 +4,12 @@ An interactive map that lets users scroll to explore space and learn about plane
 
 [Explore](https://thespacebar.netlify.com/) for yourself!
 
-# Tech
+## Contributors
+
+* [Anthony Wan](https://github.com/xMizu)
+* [Ian Grubb](https://github.com/iangrubb)
+
+## Tech
 
 * React
 * Rails API backend ([repo](https://github.com/iangrubb/space_project_backend))
